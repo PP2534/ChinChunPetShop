@@ -1,0 +1,319 @@
+﻿@using ChinChunPetShop.Models.Entity
+
+@{
+    ViewData["Title"] = "Đơn hàng đã đặt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="bg-light border-top py-4">
+    <div class="container">
+        <div class="border rounded-2 px-3 py-2 bg-white">
+            <!-- Pills navs 
+             <ul class="nav nav-pills nav-justified mb-3 d-none d-md-flex" id="ex1" role="tablist">
+                 <li class="nav-item d-flex" role="presentation">
+                     <a class="nav-link d-flex align-items-center justify-content-center w-100 active" id="ex1-tab-1" data-bs-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Chờ xác nhận</a>
+                 </li>
+                 <li class="nav-item d-flex" role="presentation">
+                     <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-2" data-bs-toggle="pill" href="#ex1-pills-2" role="tab" aria-controls="ex1-pills-2" aria-selected="false">Đang giao</a>
+                 </li>
+                 <li class="nav-item d-flex" role="presentation">
+                     <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-3" data-bs-toggle="pill" href="#ex1-pills-3" role="tab" aria-controls="ex1-pills-3" aria-selected="false">Đã nhận</a>
+                 </li>
+                 <li class="nav-item d-flex" role="presentation">
+                     <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-4" data-bs-toggle="pill" href="#ex1-pills-4" role="tab" aria-controls="ex1-pills-4" aria-selected="false">Đã hủy/trả</a>
+                 </li>
+             </ul>-->
+            <nav class="navbar navbar-expand-sm" style="z-index:0">
+                <div class="container-fluid d-flex justify-content-center">
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                        <span class=""><i class="bi bi-caret-down-fill text-primary"></i></span>
+                    </button>
+
+                   
+                    <div class="collapse navbar-collapse d-md-flex justify-content-center" id="collapsibleNavbar">
+                        <!--
+                        <ul class="navbar-nav w-100">
+                            <li class="nav-item col-4 d-flex justify-content-center">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item col-4 d-flex justify-content-center">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item col-4 d-flex justify-content-center">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                        </ul>
+
+                        -->
+                        <ul class="nav navbar-nav nav-pills mb-3" id="ex1" role="tablist">
+                            <li class="nav-item d-flex me-md-5" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100 active" id="ex1-tab-1" data-bs-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Chờ xác nhận&nbsp;<span class="badge">(@(ViewBag.XuLy != null ? ViewBag.XuLy.Count : "0"))</span></a>
+                            </li>
+                            <li class="nav-item d-flex me-md-5" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-2" data-bs-toggle="pill" href="#ex1-pills-2" role="tab" aria-controls="ex1-pills-2" aria-selected="false">Đang giao&nbsp;<span class="badge">(@(ViewBag.DangGiao != null ? ViewBag.DangGiao.Count : "0"))</span></a>
+                            </li>
+                            <li class="nav-item d-flex me-md-5" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-3" data-bs-toggle="pill" href="#ex1-pills-3" role="tab" aria-controls="ex1-pills-3" aria-selected="false">Đã nhận&nbsp;<span class="badge">(@(ViewBag.DaNhan != null ? ViewBag.DaNhan.Count : "0"))</span></a>
+                            </li>
+                            <li class="nav-item d-flex me-md-5" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-4" data-bs-toggle="pill" href="#ex1-pills-4" role="tab" aria-controls="ex1-pills-4" aria-selected="false">Đã hủy&nbsp;<span class="badge">(@(ViewBag.DaHuy != null ? ViewBag.DaHuy.Count : "0"))</span></a>
+                            </li>
+                            <li class="nav-item d-flex" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-5" data-bs-toggle="pill" href="#ex1-pills-5" role="tab" aria-controls="ex1-pills-5" aria-selected="false">Đã trả&nbsp;<span class="badge">(@(ViewBag.DaTra != null ? ViewBag.DaTra.Count : "0"))</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Pills navs -->
+            <!-- Pills content -->
+            <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                    
+                    <div class="accordion-body row">
+                        <h5 class="m-0">Chờ xác nhận</h5>
+                        @if (ViewBag.XuLy != null && ViewBag.XuLy.Count > 0)
+                        {
+                            foreach (DonHang x in ViewBag.XuLy)
+                            {
+                                <div class="p-1 col-md-4">
+                                    <div class="don-hang border border-2 rounded-3 p-2 mb-3 actionlink actionlink-hover" data-url="../khachhang/dondadat/@x.MaDH">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="fw-semibold m-0">Mã đơn hàng: <span class="text-primary fs-7">@x.MaDH</span></h6>
+                                            </div>
+                                            <div class="col-12 ">
+                                                <span class="">Tình trạng đơn hàng:</span> <strong class="fs-7">@x.MaTTDHNavigation.TenTTDH</strong>
+                                            </div>
+                                            <div class="col-12">
+                                                <span class="">Ngày mua hàng:</span> <strong class="fs-7">@(string.Format("{0:dd/MM/yyyy}", x.NgayMuaHang))</strong>
+                                            </div>
+                                            <div class="col-12">
+                                                <span class="">Tình trạng thanh toán:</span>
+                                                <strong class="fs-7 @((x.ThanhToan == true) ? "text-success" : "text-danger")">
+                                                    @(x.ThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán")
+                                                </strong>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 my-truncate-2">
+                                                <span class="">Chi tiết sản phẩm:</span>
+                                                @foreach (var ctdh in x.CTDHs)
+                                                {
+                                                    <p class="m-0 py-0" style="font-size:0.9em">
+                                                        <strong>x @ctdh.SoLuong</strong> @ctdh.MaSPNavigation.TenSP
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted">
+                                <p>Không có đơn hàng nào.</p>
+                            </div>
+                        }
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                    <h5>Đang giao</h5>
+                    <div class="accordion-body">
+                        @if (ViewBag.DangGiao != null && ViewBag.DangGiao.Count > 0)
+                        {
+                            foreach (DonHang x in ViewBag.DangGiao)
+                            {
+                                <div class="don-hang border border-2 rounded-3 p-3 mb-3 actionlink col-md-3" data-url="../donhang/chitiet/@x.MaDH">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <h6 class="fw-semibold m-0">Mã đơn hàng: <span class="text-primary">@x.MaDH</span></h6>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <span class="text-secondary">Tình trạng đơn hàng:</span> <strong>@x.MaTTDHNavigation.TenTTDH</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Ngày mua hàng:</span> <strong>@(string.Format("{0:dd/MM/yyyy}", x.NgayMuaHang))</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Tình trạng thanh toán:</span>
+                                            <strong class="@((x.ThanhToan == true) ? "text-success" : "text-danger")">
+                                                @(x.ThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán")
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="text-secondary">Chi tiết sản phẩm:</span>
+                                            @foreach (var ctdh in x.CTDHs)
+                                            {
+                                                <p class="m-0 py-0 my-truncate-1">
+                                                    <strong>x @ctdh.SoLuong</strong> @ctdh.MaSPNavigation.TenSP
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted">
+                                <p>Không có đơn hàng nào.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                    <h5>Đã nhận</h5>
+                    <div class="accordion-body">
+                        @if (ViewBag.DaNhan != null && ViewBag.DaNhan.Count > 0)
+                        {
+                            foreach (DonHang x in ViewBag.DaNhan)
+                            {
+                                <div class="don-hang border border-2 rounded-3 p-3 mb-3 actionlink col-md-3" data-url="../donhang/chitiet/@x.MaDH">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <h6 class="fw-semibold m-0">Mã đơn hàng: <span class="text-primary">@x.MaDH</span></h6>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <span class="text-secondary">Tình trạng đơn hàng:</span> <strong>@x.MaTTDHNavigation.TenTTDH</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Ngày mua hàng:</span> <strong>@(string.Format("{0:dd/MM/yyyy}", x.NgayMuaHang))</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Tình trạng thanh toán:</span>
+                                            <strong class="@((x.ThanhToan == true) ? "text-success" : "text-danger")">
+                                                @(x.ThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán")
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="text-secondary">Chi tiết sản phẩm:</span>
+                                            @foreach (var ctdh in x.CTDHs)
+                                            {
+                                                <p class="m-0 py-0 my-truncate-1">
+                                                    <strong>x @ctdh.SoLuong</strong> @ctdh.MaSPNavigation.TenSP
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted">
+                                <p>Không có đơn hàng nào.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                    <h5>Đã hủy</h5>
+                    <div class="accordion-body">
+                        @if (ViewBag.DaHuy != null && ViewBag.DaHuy.Count > 0)
+                        {
+                            foreach (DonHang x in ViewBag.DaHuy)
+                            {
+                                <div class="don-hang border border-2 rounded-3 p-3 mb-3 actionlink col-md-3" data-url="../donhang/chitiet/@x.MaDH">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <h6 class="fw-semibold m-0">Mã đơn hàng: <span class="text-primary">@x.MaDH</span></h6>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <span class="text-secondary">Tình trạng đơn hàng:</span> <strong>@x.MaTTDHNavigation.TenTTDH</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Ngày mua hàng:</span> <strong>@(string.Format("{0:dd/MM/yyyy}", x.NgayMuaHang))</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Tình trạng thanh toán:</span>
+                                            <strong class="@((x.ThanhToan == true) ? "text-success" : "text-danger")">
+                                                @(x.ThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán")
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="text-secondary">Chi tiết sản phẩm:</span>
+                                            @foreach (var ctdh in x.CTDHs)
+                                            {
+                                                <p class="m-0 py-0 my-truncate-1">
+                                                    <strong>x @ctdh.SoLuong</strong> @ctdh.MaSPNavigation.TenSP
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted">
+                                <p>Không có đơn hàng nào.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane fade mb-2" id="ex1-pills-5" role="tabpanel" aria-labelledby="ex1-tab-5">
+                    <h5>Đã trả</h5>
+                    <div class="accordion-body">
+                        @if (ViewBag.DaTra != null && ViewBag.DaTra.Count > 0)
+                        {
+                            foreach (DonHang x in ViewBag.DaTra)
+                            {
+                                <div class="don-hang border border-2 rounded-3 p-3 mb-3 actionlink col-md-3" data-url="../donhang/chitiet/@x.MaDH">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <h6 class="fw-semibold m-0">Mã đơn hàng: <span class="text-primary">@x.MaDH</span></h6>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <span class="text-secondary">Tình trạng đơn hàng:</span> <strong>@x.MaTTDHNavigation.TenTTDH</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Ngày mua hàng:</span> <strong>@(string.Format("{0:dd/MM/yyyy}", x.NgayMuaHang))</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-secondary">Tình trạng thanh toán:</span>
+                                            <strong class="@((x.ThanhToan == true) ? "text-success" : "text-danger")">
+                                                @(x.ThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán")
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="text-secondary">Chi tiết sản phẩm:</span>
+                                            @foreach (var ctdh in x.CTDHs)
+                                            {
+                                                <p class="m-0 py-0 my-truncate-1">
+                                                    <strong>x @ctdh.SoLuong</strong> @ctdh.MaSPNavigation.TenSP
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted">
+                                <p>Không có đơn hàng nào.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Pills content -->
+        </div>
+    </div>         
+ 
+</section>

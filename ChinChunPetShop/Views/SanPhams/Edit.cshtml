@@ -1,0 +1,119 @@
+﻿@model ChinChunPetShop.Models.Entity.SanPham
+
+@{
+    ViewData["Title"] = "Sửa sản phẩm";
+    ViewBag.Mess = ViewBag.message;
+    ViewBag.active = "SanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Chỉnh sửa sản phẩm</h4>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-body mb-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="TenSP" class="form-label ipt">Tên sản phẩm:</label>
+                                    <input type="hidden" name="MaSP" value="@Model.MaSP" />
+                                    <input asp-for="TenSP" class="form-control not-null" feedback-show_is_vaild="true" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MaSKU" class="form-label ipt">Mã SKU:</label>
+                                    <input asp-for="MaSKU" class="form-control not-null" feedback-show_is_vaild="true" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MaVach" class="form-label">Mã vạch:</label>
+                                    <input asp-for="MaVach" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="KhoiLuong" class="form-label">Khối lượng (gam):</label>
+                                    <input asp-for="KhoiLuong" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MaLoaiSP" class="form-label ipt">Phân loại:</label>
+                                    <select asp-for="MaLoaiSP" class="form-control" asp-items="ViewBag.MaLoaiSP"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MaNhanHieu" class="form-label ipt">Nhãn hiệu:</label>
+                                    <select asp-for="MaNhanHieu" class="form-control" asp-items="ViewBag.MaNhanHieu"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="GiaBanLe" class="form-label ipt">Giá bán lẻ (VNĐ)</label>
+                                    <input asp-for="GiaBanLe" class="form-control not-null" feedback-show_is_vaild="true" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="GiaBanSi" class="form-label">Giá bán sỉ (VNĐ)</label>
+                                    <input asp-for="GiaBanSi" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="GiaNhap" class="form-label ipt">Giá nhập (VNĐ)</label>
+                                    <input asp-for="GiaNhap" class="form-control not-null" feedback-show_is_vaild="true" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="DonViTinh" class="form-label ipt">Đơn vị tính</label>
+                                    <input asp-for="DonViTinh" class="form-control not-null" feedback-show_is_vaild="true" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MoTa" class="form-label">Mô tả</label>
+                                    <input asp-for="MoTa" class="form-control" placeholder="Nhập mô tả..." />
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label class="form-label" for="HinhAnhs">Hình ảnh</label>
+                                    <input type="file" class="form-control HinhAnh mb-1" id="HinhAnhs" name="HinhAnh" placeholder="">
+                                    <div class="col-lg-4 mb-4">
+                                        <img src="~/images/sanpham/@(string.IsNullOrWhiteSpace(Model.HinhAnh)?"petshop_sp.png":Model.HinhAnh)" id="HinhAnh" style="width:100%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="GioiThieu" class="form-label">Giới thiệu</label>
+                            <textarea asp-for="GioiThieu" class="form-control" rows="3" placeholder="Nhập giới thiệu sản phẩm..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-info submit-vadidate">Lưu</button>
+                            <button type="reset" class="btn btn-dark">Đặt lại</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

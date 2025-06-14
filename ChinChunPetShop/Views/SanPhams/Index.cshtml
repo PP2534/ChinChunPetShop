@@ -1,0 +1,169 @@
+﻿@model IEnumerable<ChinChunPetShop.Models.ViewModel.CTSanPham>
+
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+    ViewBag.Mess = ViewBag.message;
+    ViewBag.active = "SanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-content-center mb-3">
+                    <div>
+						<h4 class="card-title fw-bold fs-3">Danh sách sản phẩm</h4>
+						<h6 class="card-subtitle">
+							Danh sách các sản phẩm trong toàn bộ hệ thống của kho
+						</h6>
+                    </div>
+					<div class="d-flex align-items-center">
+                        @if (!string.IsNullOrEmpty(ViewBag.masp) || !string.IsNullOrEmpty(ViewBag.masku) || !string.IsNullOrEmpty(ViewBag.tensp) || !string.IsNullOrEmpty(ViewBag.nhanhieu) || !string.IsNullOrEmpty(ViewBag.loaisp) || !string.IsNullOrEmpty(ViewBag.giamin) || !string.IsNullOrEmpty(ViewBag.giamax))
+                        {
+                            <div class="col me-3 text-info fw-bold">
+                                Đã áp dụng bộ lọc
+                            </div>
+                        }
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#boloc_sanpham">Lọc nâng cao</button>
+                            <a class="btn btn-outline-orange" href="~/admin/sanpham/them">Thêm mới</a>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="table-responsive">
+                    <table id="table_database" class="table border table-striped table-bordered text-nowrap"
+                           style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="fw-bold">Mã sản phẩm</th>
+                                <th class="fw-bold">Tên sản phẩm</th>
+                                <th class="fw-bold">Mã SKU</th>
+                                <th class="fw-bold">Phân loại</th>
+                                <th class="fw-bold">Nhãn hiệu</th>
+                                <th class="fw-bold">Khối lượng (g)</th>
+                                <th class="fw-bold">Đơn vị</th>
+                                <th class="fw-bold">Giá bán lẻ</th>
+                                <th class="fw-bold">Giá bán sỉ</th>
+                                <th class="fw-bold">Giá nhập</th>
+                                <th class="fw-bold">Số lượng tồn kho</th>
+                                <th class="fw-bold">Số lượng có thể bán</th>
+                                <th class="fw-bold">Số lượng đã bán</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(Model != null)
+                            {
+                                foreach(var sp in Model)
+                                {
+                                    <tr>
+                                        <td><a href="~/admin/sanpham/@sp.MaSP">@sp.MaSP</a></td>
+                                        <td><a href="~/admin/sanpham/@sp.MaSP">@sp.TenSP</a></td>
+                                        <td>@sp.MaSKU</td>
+                                        <td>@sp.TenLoaiSP</td>
+                                        <td>@sp.TenNhanHieu</td>
+                                        <td>@sp.KhoiLuong</td>
+                                        <td>@sp.DonViTinh</td>
+                                        <td>@sp.GiaBanLe.ToString("#,##0" + "₫")</td>
+                                        <td>@sp.GiaBanSi?.ToString("#,##0" + "₫")</td>
+                                        <td>@sp.GiaNhap.ToString("#,##0" + "₫")</td>
+                                        <td>@sp.SLTonKho</td>
+                                        <td>@sp.SLCoTheBan</td>
+                                        <td>@sp.SLDaBan</td>
+                                    </tr>
+                                }
+                                
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mã SKU</th>
+                                <th>Phân loại</th>
+                                <th>Nhãn hiệu</th>
+                                <th>Khối lượng (g)</th>
+                                <th>Đơn vị</th>
+                                <th>Giá bán lẻ</th>
+                                <th>Giá bán sỉ</th>
+                                <th>Giá nhập</th>
+                                <th>Số lượng tồn kho</th>
+                                <th>Số lượng có thể bán</th>
+                                <th>Số lượng đã bán</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="boloc_sanpham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="exampleModalLabel">Tìm kiếm nâng cao</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_sanpham">
+                    <div class="row mb-3"> 
+                        <div class="col-sm-6">
+                            <label for="masp" class="col-form-label fw-bold">Mã sản phẩm:</label>
+                            <input type="text" class="form-control" id="masp" name="masp" value="@(ViewBag.masp??"")">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="tensp" class="col-form-label fw-bold">Tên sản phẩm:</label>
+                            <input type="text" class="form-control" id="tensp" name="tensp" value="@(ViewBag.tensp??"")">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="masku" class="col-form-label fw-bold">Mã SKU:</label>
+                            <input type="text" class="form-control" id="masku" name="masku" value="@(ViewBag.masku??"")">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="nhanhieu" class="col-form-label fw-bold">Nhãn hiệu</label>
+                            <select name="nhanhieu" id="nhanhieu" class="form-control">
+                                <option value="">-- Chọn nhãn hiệu --</option>
+                                @foreach (var x in ViewBag.NhanHieus)
+                                {
+                                    <option value="@x.MaNhanHieu" selected="@(ViewBag.nhanhieu == x.MaNhanHieu ? "selected" : null)">@x.TenNhanHieu</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="loaisp" class="col-form-label fw-bold">Phân loại</label>
+                            <select name="loaisp" id="loaisp" class="form-control">
+                                <option value="">-- Chọn phân loại --</option>
+                                @foreach (var x in ViewBag.LoaiSanPhams)
+                                {
+                                    <option value="@x.MaLoaiSP" selected="@(ViewBag.loaisp == x.MaLoaiSP ? "selected" : null)">@x.TenLoaiSP</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="giamin" class="col-form-label fw-bold">Giá bán nhỏ nhất:</label>
+                            <input type="number" min="0" class="form-control" id="giamin" name="giamin" value="@(ViewBag.giamin??"")">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="giamax" class="col-form-label fw-bold">Giá bán cao nhất:</label>
+                            <input type="number" min="0" class="form-control" id="giamax" name="giamax" value="@(ViewBag.giamax??"")">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <a class="btn btn-danger" href="~/admin/sanpham">Xóa bộ lọc</a>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('form_sanpham').submit();">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+</div>

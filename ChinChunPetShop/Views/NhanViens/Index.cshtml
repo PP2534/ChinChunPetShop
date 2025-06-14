@@ -1,0 +1,191 @@
+﻿@model IEnumerable<ChinChunPetShop.Models.ViewModel.CTNhanVien>
+
+@{
+    ViewData["Title"] = "Quản lý nhân viên";
+    ViewBag.Mess = ViewBag.message;
+    ViewBag.active = "NhanVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-content-center mb-3">
+                    <div>
+                        <h4 class="card-title fw-bold fs-3">Danh sách nhân viên</h4>
+                        <h6 class="card-subtitle">
+                            Danh sách các nhân viên của cửa hàng
+                        </h6>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        @if (!string.IsNullOrEmpty(ViewBag.manv) || !string.IsNullOrEmpty(ViewBag.hoten) || !string.IsNullOrEmpty(ViewBag.diachi) || !string.IsNullOrEmpty(ViewBag.sdt) || !string.IsNullOrEmpty(ViewBag.email) || !string.IsNullOrEmpty(ViewBag.giamin) || !string.IsNullOrEmpty(ViewBag.giamax))
+                        {
+                            <div class="col me-3 text-info fw-bold">
+                                Đã áp dụng bộ lọc
+                            </div>
+                        }
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#boloc_nhanvien">Lọc nâng cao</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="table_database" class="table border table-striped table-bordered text-nowrap"
+                           style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="fw-bold">Mã nhân viên</th>
+                                <th class="fw-bold">Họ nhân viên</th>
+                                <th class="fw-bold">Tên nhân viên</th>
+                                <th class="fw-bold">Địa chỉ email</th>
+                                <th class="fw-bold">Số điện thoại</th>
+                                <th class="fw-bold">Ngày sinh</th>
+                                <th class="fw-bold">Giới tính</th>
+                                <th class="fw-bold">Địa chỉ</th>
+                                <th class="fw-bold">Lương</th>
+                                <th class="fw-bold">Mật khẩu</th>
+                                <th class="fw-bold">Ngày vào làm</th>
+                                <th class="fw-bold">Xác thực email</th>
+                                <th class="fw-bold">Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var nv in Model)
+                                {
+                                    <tr>
+                                        <td><a href="~/admin/nhanvien/@nv.MaNV">@nv.MaNV</a></td>
+                                        <td>@nv.HoNV</td>
+                                        <td>@nv.TenNV</td>
+                                        <td>@nv.Email</td>
+                                        <td>@nv.SDT</td>
+                                        <td>@nv.NgaySinh</td>
+                                        <td>@nv.GioiTinh</td>
+                                        <td>@nv.DiaChi</td>
+                                        <td>@nv.Luong.ToString("#,##0" + "₫")</td>
+                                        <td>@nv.MatKhau</td>
+                                        <td>@nv.NgayVaoLam</td>
+                                        <td>@nv.XacThucEmail</td>
+                                        <td>
+                                            <a href="~/admin/nhanvien/chinhsua/@nv.MaNV" class="btn btn-outline-primary"><abbr title="Cập nhật thông tin nhân viên"><i class="bi bi-pencil-square"></i></abbr></a>
+                                            <a href="~/admin/nhanvien/phanquyen/@nv.MaNV" class="btn btn-outline-primary"><abbr title="Phân quyền nhân viên"><i class="bi bi-building-lock"></i></abbr></a>
+                                            <button type="button" class="btn btn-outline-primary xoanhanvien" data-manhanvien="@nv.MaNV" data-name="@nv.HoNV @nv.TenNV" data-image="~/images/nhanvien/@nv.HinhAnh"><abbr title="Xóa nhân viên"><i class="bi bi-trash"></i></abbr></button>
+                                        </td>
+
+									</tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Mã nhân viên</th>
+                                <th>Họ nhân viên</th>
+                                <th>Tên nhân viên</th>
+                                <th>Địa chỉ email</th>
+                                <th>Số điện thoại</th>
+                                <th>Ngày sinh</th>
+                                <th>Giới tính</th>
+                                <th>Địa chỉ</th>
+                                <th>Lương</th>
+                                <th>Mật khẩu</th>
+                                <th>Ngày vào làm</th>
+                                <th>Xác thực email</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="boloc_nhanvien" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="exampleModalLabel">Tìm kiếm nâng cao</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_nhanvien">
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="manv" class="col-form-label fw-bold">Mã nhân viên:</label>
+                            <input type="text" class="form-control" id="manv" name="manv" value="@(ViewBag.manv??"")">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="hoten" class="col-form-label fw-bold">Họ tên nhân viên:</label>
+                            <input type="text" class="form-control" id="hoten" name="hoten" value="@(ViewBag.hoten??"")">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="email" class="col-form-label fw-bold">Địa chỉ email:</label>
+                            <input type="text" class="form-control" id="email" name="email" value="@(ViewBag.email??"")">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="sdt" class="col-form-label fw-bold">Số điện thoại:</label>
+                            <input type="text" class="form-control" id="sdt" name="sdt" value="@(ViewBag.sdt??"")">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="diachi" class="col-form-label fw-bold">Địa chỉ:</label>
+                            <input type="text" class="form-control" id="diachi" name="diachi" value="@(ViewBag.diachi??"")">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <label for="giamin" class="col-form-label fw-bold">Lương thấp nhất:</label>
+                            <input type="number" min="0" class="form-control" id="giamin" name="giamin" value="@(ViewBag.giamin??"")">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="giamax" class="col-form-label fw-bold">Lương cao nhất:</label>
+                            <input type="number" min="0" class="form-control" id="giamax" name="giamax" value="@(ViewBag.giamax??"")">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <a class="btn btn-danger" href="~/admin/nhanvien">Xóa bộ lọc</a>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('form_nhanvien').submit();">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteNhanVienModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:31rem">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteLabel">Xoá nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Product Info -->
+                <div class="d-flex align-items-center mb-3">
+                    <img src="" alt="Product" class="me-3 AnhNhanVien" style="width: 80px; height: 80px; object-fit: cover;">
+                    <div>
+                        <h6 class="mb-1 MaNhanVien">Mã nhân viên: </h6>
+                        <p class="mb-0 text-muted TenNhanVien">Tên nhân viên: </p>
+                    </div>
+                </div>
+                <h6 class="text-danger">Bạn có chắc chắn muốn xoá tài khoản nhân viên này?</h6>
+                <!-- Form -->
+                <form method="post" action="~/NhanViens64131888/DeleteConfirmed">
+                    <input type="hidden" class="MaNhanVien-input" name="id" value="">
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

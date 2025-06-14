@@ -1,0 +1,137 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "ChinChunPetShopContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models\/Entity",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "ChinChunPetShop",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "CTDH",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CTDT",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CTGiaoDich",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CTKM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "DoiTraHang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "DonHang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "GioHang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "KhachHang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "KhoHang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "LoaiSanPham",
+         "ObjectType": 0
+      },
+      {
+         "Name": "MocTangQua",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NhanHieu",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NhanVien",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PhanQuyen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PhiVanChuyen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PTTT",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SanPham",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SoKho",
+         "ObjectType": 0
+      },
+      {
+         "Name": "SPKM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ThamSo",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TonKho",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TrangThaiDH",
+         "ObjectType": 0
+      },
+      {
+         "Name": "VaiTro",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<ChinChunPetShop.Models.Entity.SanPham>
+@{
+	ViewData["Title"] = "Trang chủ";
+	ViewBag.active = "TrangChu";
+}
+
+<!-- Hero Start -->
+<div class="">
+	<img src="~/images/shared/chinchun_wall.jpg" class="object-fit-cover w-100" />
+
+</div>
+<!-- Hero End -->
+<!-- About Start -->
+<div class="container-fluid py-5">
+	<div class="container">
+		<div class="row gx-5">
+			<div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+				<div class="position-relative h-100">
+					<img class="position-absolute w-100 h-100 rounded" src="~/images/shared/chinchun_cat.jpg" style="object-fit: cover;">
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="border-start border-5 border-primary ps-5 mb-5">
+					<h6 class="text-primary text-uppercase">Về ChinChun PetShop</h6>
+					<h5 class="text-uppercase mb-0">ChinChun Petshop là điểm đến lý tưởng cho các thú cưng tại Nha Trang, với đa dạng sản phẩm chăm sóc như phụ kiện, thức ăn, quần áo, lồng nuôi, và lót chuồng.</h5>
+				</div>
+				<div class="bg-light p-4">
+					<h3>Tại sao nên chọn ChinChun Petshop?</h3>
+					<ul>
+						<li>Đồ dùng thú cưng phong phú về mẫu mã, màu sắc và chất liệu an toàn.</li>
+						<li>Thức ăn chính và snack ngon miệng cho thú cưng từ sơ sinh đến trưởng thành.</li>
+						<li>Không gian mua sắm rộng rãi và thoải mái.</li>
+						<li>Sản phẩm được chọn lọc kỹ càng, đảm bảo chất lượng tốt nhất.</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- About End -->
+<!-- Services Start -->
+<div class="container-fluid py-5">
+	<div class="container">
+		<div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 800px;">
+			<h6 class="text-primary text-uppercase">Sản phẩm</h6>
+			<h3 class="text-uppercase mb-0">ChinChun cung cấp các loại sản phẩm gồm</h3>
+		</div>
+		<div class="row g-5">
+			<div class="col-md-6">
+				<div class="service-item bg-light d-flex p-4">
+					<i class="flaticon-house display-1 text-primary me-4"></i>
+					<div>
+						<h5 class="text-uppercase mb-3">Phụ kiện</h5>
+						<p>Bao gồm cả quần áo, vòng cổ, tất, cỏ bạc hà, ba lô,...</p>
+						<a class="text-primary text-uppercase" href="~/sanpham/">Xem sản phẩm<i class="bi bi-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="service-item bg-light d-flex p-4">
+					<i class="flaticon-food display-1 text-primary me-4"></i>
+					<div>
+						<h5 class="text-uppercase mb-3">Thực phẩm</h5>
+						<p>Pate, xúc xích, thức ăn hạt, xương gặm,...</p>
+						<a class="text-primary text-uppercase" href="">Xem sản phẩm<i class="bi bi-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="service-item bg-light d-flex p-4">
+					<i class="flaticon-cat display-1 text-primary me-4"></i>
+					<div>
+						<h5 class="text-uppercase mb-3">Cát vệ sinh</h5>
+						<p>Nhiều loại loại cát vệ sinh cao cấp cho mèo như: refex, clean cat, catsme,... </p>
+						<a class="text-primary text-uppercase" href="">Xem sản phẩm<i class="bi bi-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="service-item bg-light d-flex p-4">
+					<i class="flaticon-vaccine display-1 text-primary me-4"></i>
+					<div>
+						<h5 class="text-uppercase mb-3">Thuốc men</h5>
+						<p>ChinChun cũng có các loại thuốc trị ve rận, thuốc sổ giun, thực phẩm bảo vệ sức khỏe,...</p>
+						<a class="text-primary text-uppercase" href="">Xem sản phẩm<i class="bi bi-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Services End -->
+<!-- Products Start -->
+<div class="container-fluid py-5">
+	<div class="container">
+		<div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 800px;">
+			<h6 class="text-primary text-uppercase">Sản phẩm</h6>
+			<h3 class="text-uppercase mb-0">Sản phẩm bán chạy</h3>
+		</div>
+		<div class="owl-carousel product-carousel">
+			@foreach(var sp in Model)
+			{
+				<div class="pb-5">
+					<div class="product-item position-relative bg-light d-flex flex-column text-center">
+						<a href="~/sanpham/@sp.MaSP">
+							<img class="img-fluid mb-4" src="~/images/sanpham/@(!String.IsNullOrEmpty(sp.HinhAnh)?sp.HinhAnh:"petshop_sp.png")" alt="">
+							<h6 class="text-uppercase">@sp.TenSP</h6>
+							<h5 class="text-primary mb-0">@sp.GiaBanLe.ToString("#,##0" + "₫")</h5>
+						</a>
+						
+						<div class="btn-action d-flex justify-content-center">
+							<button class="btn btn-primary py-2 px-3 add-to-cart" data-masp="@sp.MaSP" data-name="@sp.TenSP" data-max="@sp.TonKhos.Select(m => m.SLCoTheBan).SingleOrDefault()" data-NhanHieu="@sp.MaNhanHieuNavigation.TenNhanHieu" data-image="images/sanpham/@(!String.IsNullOrEmpty(sp.HinhAnh) ? sp.HinhAnh : "petshop_sp.png")" data-next="~/"><i class="bi bi-cart"></i></button>
+							<a class="btn btn-primary py-2 px-3" href="~/sanpham/@sp.MaSP"><i class="bi bi-eye"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+			
+		</div>
+	</div>
+</div>
+<!-- Products End -->

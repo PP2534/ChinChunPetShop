@@ -1,0 +1,115 @@
+﻿@model ChinChunPetShop.Models.Entity.ThamSo
+@{
+    ViewData["Title"] = "Cài đặt tham số";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.active = "ThamSo";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-content-center">
+                    <div>
+                        <h4 class="card-title fw-bold fs-3">Danh sách tham số</h4>
+                        <h6 class="card-subtitle">
+                            Tùy chỉnh các thông số hệ thống
+                        </h6>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a class="btn btn-primary" href="~/admin/thamso/dieuchinh">Điều chỉnh</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+	<!-- ============================================================== -->
+	<!-- Start Page Content -->
+	<!-- ============================================================== -->
+	<div class="row d-flex align-items-stretch">
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Tồn kho tối đa</h4>
+					<h6 class="card-subtitle">Số lượng tối đa mỗi sản phẩm có trong kho</h6>
+					<div class="form-group">
+						<input type="number" class="form-control" value="@Model.TonKhoToiDa" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Tồn kho tối thiểu</h4>
+					<h6 class="card-subtitle">Số lượng tối thiểu (ít nhất) mỗi sản phẩm có trong kho</h6>
+					<div class="form-group">
+						<input type="number" class="form-control" value="@Model.TonKhoToiThieu" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Tồn kho cảnh báo</h4>
+					<h6 class="card-subtitle">Số lượng của mỗi sản phẩm trong kho khi xuống dưới ngưỡng này sẽ cảnh báo.</h6>
+					<div class="form-group">
+						<input type="number" class="form-control" value="@Model.TonKhoToiDa" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Giá trị ghi điểm (VNĐ)</h4>
+					<h6 class="card-subtitle">Quy định đao nhiêu tiền sẽ được 1 điểm</h6>
+					<div class="form-group">
+						<input type="text" class="form-control" value="@Model.GiaTriGhiDiem.ToString("#,##0" + "₫")" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Thời gian trả hàng (ngày)</h4>
+					<h6 class="card-subtitle">Số ngày kể từ khi nhận hàng, khách hàng có thể đổi trả</h6>
+					<div class="form-group">
+						<input type="text" class="form-control" value="@Model.ThoiGianTraHang ngày" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Số lượng mua sĩ tối thiểu</h4>
+					<h6 class="card-subtitle">Số lượng sản phẩm tối thiểu để được tính là mua sĩ (mua số lượng lớn)</h6>
+					<div class="form-group">
+						<input type="number" class="form-control" value="@Model.SLMuaSiToiThieu" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-4 pb-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h4 class="card-title">Thời gian tự động hủy đơn (giờ)</h4>
+					<h6 class="card-subtitle">Các đơn đặt hàng online của khách hàng khi chưa thanh toán, sau khoản thời gian này sẽ tự động hủy</h6>
+					<div class="form-group">
+						<input type="text" class="form-control" value="@Model.ThoiGianTuDongHuyDon giờ" disabled>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

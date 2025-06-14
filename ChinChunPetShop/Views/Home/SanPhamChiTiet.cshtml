@@ -1,0 +1,208 @@
+﻿@using ChinChunPetShop.Models.Entity
+@model ChinChunPetShop.Models.ViewModel.CTSanPham
+
+@{
+    ViewData["Title"] = Model.TenSP;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SanPham> dssp_simular = ViewBag.sp_best_similar;
+}
+
+
+<!-- content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-6">
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="~/images/sanpham/@Model.HinhAnh" />
+                </div>
+               
+            </aside>
+            <main class="col-lg-6">
+                <div class="ps-lg-3">
+                    <form method="post">
+                        <h4 class="title text-dark">
+                            @Model.TenSP
+                        </h4>
+                        <div class="d-flex flex-row my-3">
+                            <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>@Model.SLDaBan sản phẩm</span>
+                            <span class="text-success ms-2">đã bán</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="h5">@Model.GiaBanLe.ToString("#,##0" + "₫")</span>
+                            <input type="hidden" name="DonGia" value="@Model.GiaBanLe" />
+                            <span class="text-muted">/@Model.DonViTinh</span>
+                        </div>
+
+                        <p>
+                            @Model.MoTa
+                        </p>
+
+                        <div class="row">
+                            <dt class="col-3">Loại:</dt>
+                            <dd class="col-9">@Model.TenLoaiSP</dd>
+
+                            <dt class="col-3">Nhãn hiệu:</dt>
+                            <dd class="col-9">@Model.TenNhanHieu</dd>
+
+                            <dt class="col-3">Khối lượng:</dt>
+                            <dd class="col-9">@Model.KhoiLuong</dd>
+
+                             <dt class="col-3">Tồn kho</dt>
+                             <dd class="col-9">@Model.SLCoTheBan</dd>
+                        </div>
+
+                        <hr />
+                    
+                        <input type="hidden" name="MaSP" value="@Model.MaSP" />
+                        <div class="row mb-4">
+                            <div class="col-md-4 col-6 mb-3 product-qty-order">
+                                <label class="mb-2 d-block">Số lượng</label>
+                                <div class="input-group mb-3 product-quantity" style="width: 170px;">
+                                    <button class="btn btn-white border border-secondary px-3 quantity-left-minus" type="button" data-type="minus" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" id="quantity" min="1" max="@Model.SLCoTheBan" class="form-control text-center border border-secondary quantity-order-change" value="1" name="SoLuong" aria-label="Số lượng sản phẩm" aria-describedby="button-addon1" />
+                                    <button class="btn btn-white border border-secondary px-3 quantity-right-plus" type="button" data-type="plus" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div>Phi giao hàng: @ViewBag.phi_giao_hang.ToString("#,##0" + "₫")</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="next" value="~/sanpham/@Model.MaSP" />
+                        <input type="hidden" name="back" value="~/sanpham/@Model.MaSP" />
+
+                        <button formaction="~/khachhang/donhang/taodonhang" class="btn btn-warning shadow-0">Mua ngay</button>
+                        <button formaction="~/khachhang/giohang/them" class="btn btn-primary shadow-0"><i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng</button>
+
+                    </form>
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+<!-- content -->
+
+<section class="bg-light border-top py-4">
+    <div class="container">
+        <div class="row gx-4">
+            <div class="col-lg-8 mb-4">
+                <div class="border rounded-2 px-3 py-2 bg-white">
+                    <!-- Pills navs -->
+                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                        <li class="nav-item d-flex" role="presentation">
+                            <a class="nav-link d-flex align-items-center justify-content-center w-100 active" id="ex1-tab-1" data-bs-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item d-flex" role="presentation">
+                            <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-2" data-bs-toggle="pill" href="#ex1-pills-2" role="tab" aria-controls="ex1-pills-2" aria-selected="false">Thông tin chi tiết</a>
+                        </li>
+                        <li class="nav-item d-flex" role="presentation">
+                            <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-3" data-bs-toggle="pill" href="#ex1-pills-3" role="tab" aria-controls="ex1-pills-3" aria-selected="false">Giao hàng</a>
+                        </li>
+                        <li class="nav-item d-flex" role="presentation">
+                            <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-4" data-bs-toggle="pill" href="#ex1-pills-4" role="tab" aria-controls="ex1-pills-4" aria-selected="false">Mua sỉ</a>
+                        </li>
+                    </ul>
+                    <!-- Pills navs -->
+                    <!-- Pills content -->
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                            <h5>Giới thiệu</h5>
+                            <p>
+                               @Model.GioiThieu
+                            </p>
+                          
+                           
+                        </div>
+                        <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            <h5>Chi tiết sản phẩm</h5>
+                            <table class="table border mt-3 mb-2">
+                                <tr>
+                                    <th class="py-2">Tên đầy đủ:</th>
+                                    <td class="py-2">@Model.TenSP</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Nhãn hiệu:</th>
+                                    <td class="py-2">@Model.TenNhanHieu</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Phân loại:</th>
+                                    <td class="py-2">@Model.TenLoaiSP</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Khối lượng:</th>
+                                    <td class="py-2">@Model.KhoiLuong</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Đơn vị:</th>
+                                    <td class="py-2">@Model.DonViTinh</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Giá bán lẻ:</th>
+                                    <td class="py-2">@Model.GiaBanLe</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Giá bán sỉ:</th>
+                                    <td class="py-2">@Model.GiaBanSi</td>
+                                </tr> 
+                                <tr>
+                                    <th class="py-2">Phí giao hàng:</th>
+                                    <td class="py-2">@ViewBag.phi_giao_hang</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2">Số lượng tồn kho:</th>
+                                    <td class="py-2">@Model.SLCoTheBan</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                        <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                            <h5>Chính sách giao hàng</h5>
+                           Đơn hàng sẽ được giao đến bạn trong vòng 3-5 ngày (trừ thứ 7, chủ nhật và các ngày lễ).
+                            <p>Phí giao hàng: @ViewBag.phi_giao_hang.ToString("#,##0" + "₫")</p>
+                        </div>
+                        <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                            <h5>Ưu đãi giá dành cho khách hàng mua sĩ</h5>
+                            <p>Mua sĩ được áp dụng khi mua sản phẩm với số lượng từ @ViewBag.so_luong_mua_si_toi_thieu trở lên</p>
+                            <p>Giá mua sĩ: @Model.GiaBanSi</p>
+                        </div>
+                    </div>
+                    <!-- Pills content -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="px-0 border rounded-2 shadow-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Sản phẩm tương tự</h5>
+                            @if (dssp_simular != null)
+                            {
+                                @foreach (SanPham sp in dssp_simular)
+                                {
+                                    <div class="d-flex mb-3">
+                                        <a href="~/sanpham/@sp.MaSP" class="me-3">
+                                            <img src="~/images/sanpham/@(!String.IsNullOrEmpty(sp.HinhAnh)?sp.HinhAnh:"petshop_sp.png")" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                                        </a>
+                                        <div class="info">
+                                            <a href="~/sanpham/@sp.MaSP" class="nav-link mb-1">
+                                                @sp.TenSP <br />
+                                                
+                                            </a>
+                                            <strong class="text-dark"> @sp.GiaBanLe.ToString("#,##0" + "₫")</strong>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                            
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

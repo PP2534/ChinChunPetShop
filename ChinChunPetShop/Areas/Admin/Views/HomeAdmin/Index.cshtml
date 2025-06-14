@@ -1,0 +1,530 @@
+﻿@using ChinChunPetShop.Models.ViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Hệ thống quản lý";
+    ViewBag.active = "BDK";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    List<decimal> sales = ViewBag.DoanhThuTheoDH;
+    List<CTSanPham> dssp = ViewBag.DSSanPham;
+    List<CTNhanHieu> dsnh = ViewBag.DSDonHangTheoNH;
+    List<CTKhachHang> dskh = ViewBag.DSKhachHang;
+    string tg= ViewBag.tg;
+    Dictionary<string, int> tkdh = ViewBag.ThongKeDonHang;
+    Dictionary<string, decimal> tkdt = ViewBag.ThongKeDoanhThu;
+    List<string> tkdh_keys = tkdh.Keys.ToList();
+    List<int> tkdh_values = tkdh.Values.ToList();
+    List<string> tkdt_keys = new List<string>(tkdt.Keys);
+    List<decimal> tkdt_values = new List<decimal>(tkdt.Values);
+    int height = ViewBag.pading;
+}   
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-sm-7 mb-3 mb-sm-0 align-self-center">
+            <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Chào mừng @ViewBag.user.HoNV @ViewBag.user.TenNV</h3>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item">
+                            <a href="~/admin">Bảng điều khiển</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-sm-5 align-self-center">
+            <div class="customize-input float-end">
+                <form method="post" class="row">
+                    <div class="col-7 p-0 pe-2">
+                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius" name="field" onchange="this.form.submit()">
+                            <option @(ViewBag.field != null && ViewBag.field == "cd" ? "selected" : "") value="cd">Thường niên</option>
+                            <option @(ViewBag.field != null && ViewBag.field == "xtd" ? "selected" : "") value="xtd">Cùng kỳ</option>
+                            <option @(ViewBag.field != null && ViewBag.field == "rolling" ? "selected" : "") value="rolling">So sách trực tiếp</option>
+                        </select>
+                    </div>
+                   <div class="col-5 p-0">
+						<select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius" name="key" onchange="this.form.submit()">
+                            <option @(ViewBag.key != null && ViewBag.key == "week" ? "selected" : "") value="week">@(ViewBag.field == "rolling" ? "7 ngày" : "Tuần")</option>
+                            <option @(ViewBag.key != null && ViewBag.key == "month" ? "selected" : "") value="month">@(ViewBag.field == "rolling" ? "30 ngày" : "Tháng")</option>
+                            <option @(ViewBag.key != null && ViewBag.key == "quarter" ? "selected" : "") value="quarter">@(ViewBag.field == "rolling" ? "90 ngày" : "Quý")</option>
+                            <option @(ViewBag.key != null && ViewBag.key == "year" ? "selected" : "") value="year">@(ViewBag.field == "rolling" ? "365 ngày" : "Năm")</option>
+						</select>
+                   </div>
+					
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- *************************************************************** -->
+    <!-- Start First Cards -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-end">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium fs-2-5">@(ViewBag.KhachHangGT.Key)</h2>
+                                <span class="badge @(ViewBag.KhachHangGT.Value>0?"bg-primary":"bg-danger") font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">@(ViewBag.KhachHangGT.Value > 0 ? "+" : "")@(Math.Round(ViewBag.KhachHangGT.Value, 2))%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
+                                Khách hàng mới
+                            </h6>
+                        </div>
+                        <div class="ms-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-end ">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium fs-2-5">@ViewBag.DoanhThuGT.Key.ToString("#,##0" + "₫")</h2>
+                                <span class="badge @(ViewBag.DoanhThuGT.Value>0?"bg-primary":"bg-danger") font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">@(ViewBag.DoanhThuGT.Value > 0 ? "+" : "")@(Math.Round(ViewBag.DoanhThuGT.Value, 2))%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
+                                Doanh thu
+                            </h6>
+                        </div>
+                        <div class="ms-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted display-6">đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-end ">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium fs-2-5">@ViewBag.BanHangGT.Key</h2>
+                                <span class="badge @(ViewBag.BanHangGT.Value>0?"bg-primary":"bg-danger") font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">@(ViewBag.BanHangGT.Value > 0 ? "+" : "")@(Math.Round(ViewBag.BanHangGT.Value, 2))%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
+                                Sản phẩm bán ra
+                            </h6>
+                        </div>
+                        <div class="ms-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium fs-2-5">@ViewBag.DonHangGT.Key</h2>
+                                <span class="badge @(ViewBag.DonHangGT.Value>0?"bg-primary":"bg-danger") font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">@(ViewBag.DonHangGT.Value > 0 ? "+" : "")@(Math.Round(ViewBag.DonHangGT.Value, 2))%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
+                                Đơn hàng
+                            </h6>
+                        </div>
+                        <div class="ms-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End First Cards -->
+    <!-- *************************************************************** -->
+    <!-- *************************************************************** -->
+    <!-- Start Sales Charts Section -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Tổng lợi nhuận</h4>
+                    <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
+                    <ul class="list-style-none mb-0">
+                        <li class="mt-3">
+                            <i class="fas fa-circle text-danger font-10 me-2"></i>
+                            <span class="text-muted">Bán hàng online</span>
+                            <span class="text-dark float-end font-weight-medium">@sales[1].ToString("#,##0" + "₫")</span>
+                        </li>
+                        <li class="mt-3">
+                            <i class="fas fa-circle text-cyan font-10 me-2"></i>
+                            <span class="text-muted">Bán hàng trực tiếp</span>
+                            <span class="text-dark float-end font-weight-medium">@sales[0].ToString("#,##0" + "₫")</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Số lượng đơn hàng</h4>
+                    <div class="net-income mt-3 position-relative" style="height:301px;"></div>
+                    <ul class="list-inline text-center mt-4 mb-2">
+                        <li class="list-inline-item text-muted fst-italic">Đơn hàng theo @ViewBag.rkey</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Khách hàng nổi bật</h4>
+                    <div class="table-responsive" style="height:357px;overflow-y: auto;">
+                        <table class="table table-hover table-pin-field fs-7">
+                            <thead class="bg-success text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã KH</th>
+                                    <th>Tên</th>
+                                    <th>SLM</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border border-success">
+                                @{
+                                    int i = 1;
+                                }
+                                @foreach(var sp in dskh)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@sp.MaKH</td>
+                                        <td>@sp.HoTen</td>
+                                        <td>@sp.SLM</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        @if (dssp.Count == 0)
+                        {
+                            <p>Không có khách hàng nào được tìm thấy.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End Sales Charts Section -->
+    <!-- *************************************************************** -->
+    <!-- *************************************************************** -->
+    <!-- Start Location and Earnings Charts Section -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        <div class="col-md-6 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-start">
+                        <h4 class="card-title mb-0">Thống kê lợi nhuận</h4>
+                        
+                    </div>
+                    <div class="pl-4 mb-5">
+                        <div class="stats ct-charts position-relative" style="height: 315px;"></div>
+                    </div>
+                    <ul class="list-inline text-center mt-4 mb-0">
+                        <li class="list-inline-item text-muted fst-italic">Lợi nhuận theo @ViewBag.rkey</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nhãn hiệu mua nhiều</h4>
+                    <div class="table-responsive" style="height:357px;overflow-y: auto">
+                        <table class="table table-hover table-pin-field fs-7">
+                            <thead class="bg-success text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã NH</th>
+                                    <th>Tên</th>
+                                    <th>SLĐH</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border border-success">
+                                @{
+                                    i = 1;
+                                }
+                                @foreach (var nh in dsnh)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@nh.MaNhanHieu</td>
+                                        <td>@nh.TenNhanHieu</td>
+                                        <td>@nh.SLDH</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        @if (dssp.Count == 0)
+                        {
+                            <p>Không có nhãn hiệu nào được tìm thấy.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End Location and Earnings Charts Section -->
+    <!-- *************************************************************** -->
+    <!-- *************************************************************** -->
+    <!-- Start Top Leader Table -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Sản phẩm bán chạy</h4>
+                    </div>
+                     <div class="table-responsive">
+                        <table class="table table-hover table-pin-field fs-7">
+                            <thead class="bg-success text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Nhãn hiệu</th>
+                                    <th>Phân loại</th>
+                                    <th>Số lượng mua</th>
+                                    <th>Số lượng còn</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border border-success">
+                                @{
+                                    i = 1;
+                                }
+                                @foreach (var sp in dssp)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@sp.MaSP</td>
+                                        <td>@sp.TenSP</td>
+                                        <td>@sp.TenNhanHieu</td>
+                                        <td>@sp.TenLoaiSP</td>
+                                        <td>@sp.SLDaBan</td>
+                                        <td>@sp.SLTonKho</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        @if (dssp.Count == 0)
+                        {
+                            <p>Không có sản phẩm nào được tìm thấy.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End Top Leader Table -->
+    <!-- *************************************************************** -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+@section Scripts {
+    <script>
+        $(function () {
+            var chart1 = c3.generate({
+                bindto: '#campaign-v2',
+                data: {
+                    columns: [
+                        ['Bán hàng trực tiếp', parseInt(@sales[0])],
+                        ['Bán hàng online', parseInt(@sales[1])]
+                    ],
+
+                    type: 'donut',
+                    tooltip: {
+                        show: true
+                    }
+                },
+                donut: {
+                    label: {
+                        show: false
+                    },
+                    title: 'Bán hàng',
+                    width: 18
+                },
+
+                legend: {
+                    hide: true
+                },
+                color: {
+                    pattern: [
+                        '#01caf1',
+                        '#ff4f70'
+                    ]
+                }
+            });
+
+            d3.select('#campaign-v2 .c3-chart-arcs-title').style('font-family', 'Rubik');
+
+            // ==============================================================
+            // income
+            // ==============================================================
+            var data = {
+                labels: ['@tkdh_keys[0]', '@tkdh_keys[1]','@tkdh_keys[2]','@tkdh_keys[3]','@tkdh_keys[4]','@tkdh_keys[5]','@tkdh_keys[6]'],
+                series: [
+                    [@tkdh_values[0], @tkdh_values[1], @tkdh_values[2], @tkdh_values[3], @tkdh_values[4], @tkdh_values[5], @tkdh_values[6]],
+                ]
+            };
+
+            var options = {
+                axisX: {
+                    showGrid: false,
+                    labelInterpolationFnc: function (value) {
+                        var words = value.split('/');
+                        if (words.length>1)
+                            return words[0] +'\n' + words[1];
+                        return value;
+                    }
+                },
+                seriesBarDistance: 1,
+                chartPadding: {
+                    top: 15,
+                    right: 15,
+                    bottom: 5,
+                    left: 0
+                },
+                plugins: [
+                    Chartist.plugins.tooltip()
+                ],
+                width: '100%'
+            };
+
+            var responsiveOptions = [
+                ['screen and (max-width: 640px)', {
+                    seriesBarDistance: 5,
+                    axisX: {
+                        labelInterpolationFnc: function (value) {
+                            var words = value.split('/');
+                            if (words.length > 1)
+                                return words[0] + '\n' + words[1];
+                            return value;
+                        }
+                    }
+                }]
+            ];
+            new Chartist.Bar('.net-income', data, options, responsiveOptions);
+           
+            // ==============================================================
+            // Earning Stastics Chart
+            // ==============================================================
+            var chart = new Chartist.Line('.stats', {
+                labels: ['@tkdt_keys[0]', '@tkdt_keys[1]', '@tkdt_keys[2]', '@tkdt_keys[3]', '@tkdt_keys[4]', '@tkdt_keys[5]', '@tkdt_keys[6]'],
+                series: [
+                    [@tkdt_values[0], @tkdt_values[1], @tkdt_values[2], @tkdt_values[3], @tkdt_values[4], @tkdt_values[5], @tkdt_values[6]],
+                ]
+            }, {
+                low: 0,
+                high: @height,
+                showArea: true,
+                fullWidth: true,
+                chartPadding: {
+                    top: 0,
+                    right: 40,   // ≤ Tăng giá trị này nếu nhãn cuối vẫn tràn
+                    bottom: 0,
+                    left: 0     // (tùy bạn muốn đệm bên trái bao nhiêu)
+                },
+                plugins: [
+                    Chartist.plugins.tooltip()
+                ],
+                axisY: {
+                    scaleMinSpace: 40,
+                    offset: 50,//Tạo khoảng cách lable
+                    labelInterpolationFnc: function (value) {
+                        return (value / 1) + '@(tg)₫';
+                    }
+                },
+                
+            },
+            [
+                [
+                    'screen and (max-width: 640px)',
+                    {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            // Nếu nhãn có chứa dấu '/', sẽ xuống dòng
+                            labelInterpolationFnc: function (value) {
+                                var parts = value.split('/');
+                                if (parts.length > 1) {
+                                    return parts[0] + '\n' + parts[1];
+                                }
+                                return value;
+                            }
+                        },
+                        chartPadding: {
+                            top: 0,
+                            right: 30,   // ≤ Tăng giá trị này nếu nhãn cuối vẫn tràn
+                            bottom: 0,
+                            left: 0     // (tùy bạn muốn đệm bên trái bao nhiêu)
+                        },
+
+                    }
+                ]
+            ],
+            );
+
+            // Offset x1 a tiny amount so that the straight stroke gets a bounding box
+            chart.on('draw', function (ctx) {
+                if (ctx.type === 'area') {
+                    ctx.element.attr({
+                        x1: ctx.x1 + 0.001
+                    });
+                }
+            });
+
+            // Create the gradient definition on created event (always after chart re-render)
+            chart.on('created', function (ctx) {
+                var defs = ctx.svg.elem('defs');
+                defs.elem('linearGradient', {
+                    id: 'gradient',
+                    x1: 0,
+                    y1: 1,
+                    x2: 0,
+                    y2: 0
+                }).elem('stop', {
+                    offset: 0,
+                    'stop-color': 'rgba(255, 255, 255, 1)'
+                }).parent().elem('stop', {
+                    offset: 1,
+                    'stop-color': 'rgba(80, 153, 255, 1)'
+                });
+            });
+
+            $(window).on('resize', function () {
+                chart.update();
+            });
+        })
+    </script>
+}

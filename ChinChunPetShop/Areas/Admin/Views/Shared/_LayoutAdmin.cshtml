@@ -1,0 +1,281 @@
+﻿@using ChinChunPetShop.Models.Entity
+@{
+    NhanVien user = ViewBag.CurrentNhanVien;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/contents/nhanvien/assets/images/favicon.png">
+    <title>@ViewData["Title"] - ChinChunPetShop Admin</title>
+    <!-- Custom CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="@("https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css")" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/contents/nhanvien/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/contents/nhanvien/assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
+    <link href="~/contents/nhanvien/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="~/contents/nhanvien/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="~/contents/nhanvien/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/contents/nhanvien/dist/css/style.min.css" rel="stylesheet">
+    <link href="~/contents/nhanvien/dist/css/mystyte.css" rel="stylesheet">
+</head>
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-lg">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-lg-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="/admin">
+                            <p class="fw-bold">ChinChun Admin</p>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-lg-none waves-effect waves-light" href="javascript:void(0)"
+                       data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left me-auto ms-3 ps-1">
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-end">
+                       
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <img src="~/contents/nhanvien/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                     width="40">
+                                <span class="ms-2 d-none d-lg-inline-block">
+                                    <span>Chào,</span> <span class="text-dark">@user.TenNV</span> <i data-feather="chevron-down"
+                                                                                                    class="svg-icon"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i data-feather="user"
+                                       class="svg-icon me-2 ms-1"></i>
+                                    Hồ sơ cá nhân
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i data-feather="settings"
+                                       class="svg-icon me-2 ms-1"></i>
+                                    Cài đặt tài khoản
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i data-feather="power"
+                                       class="svg-icon me-2 ms-1"></i>
+                                    Đăng xuất
+                                </a>
+                               
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item @(ViewBag.active == "BDK"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "BDK"?"active":"")" href="/admin"
+                               aria-expanded="false">
+                                <i data-feather="home" class="feather-icon"></i><span class="hide-menu">Bảng điều khiển</span>
+                            </a>
+                        </li>
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Quản lý</span></li>
+
+                        <li class="sidebar-item @(ViewBag.active == "SanPham"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "SanPham"?"active":"")" href="/admin/sanpham"
+                               aria-expanded="false">
+                                <i data-feather="briefcase" class="feather-icon"></i><span class="hide-menu">
+                                    Sản phẩm
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item @(ViewBag.active == "NhanVien"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "NhanVien"?"active":"")" href="/admin/nhanvien"
+                               aria-expanded="false">
+                                <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Nhân viên</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item @(ViewBag.active == "KhachHang"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "KhachHang"?"active":"")" href="/admin/khachhang"
+                               aria-expanded="false">
+                                <i data-feather="users" class="feather-icon"></i><span class="hide-menu">Khách hàng</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item @(ViewBag.active == "SoKho"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "SoKho"?"active":"")" href="/admin/sokho"
+                               aria-expanded="false">
+                                <i data-feather="book" class="feather-icon"></i><span class="hide-menu">Sổ kho</span>
+                            </a>
+                        </li>
+
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Báo cáo</span></li>
+                        <li class="sidebar-item @(ViewBag.active == "BC_Time"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "BC_Time"?"active":"")" href="/admin/baocao/theothoigian"
+                               aria-expanded="false">
+                                <i data-feather="clock" class="feather-icon"></i><span class="hide-menu">Doanh thu theo thời gian</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item @(ViewBag.active == "DB_NH"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "DB_NH"?"active":"")" href="/admin/baocao/theonhanhieu"
+                               aria-expanded="false">
+                                <i data-feather="archive" class="feather-icon"></i><span class="hide-menu">Doanh thu theo nhãn hiệu</span>
+                            </a>
+                        </li>
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Cài đặt</span></li>
+                        <li class="sidebar-item @(ViewBag.active == "ThamSo"?"selected":"")">
+                            <a class="sidebar-link @(ViewBag.active == "ThamSo"?"active":"")" href="/admin/thamso"
+                               aria-expanded="false">
+                                <i data-feather="sliders" class="feather-icon"></i><span class="hide-menu">Tham số hệ thống</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            @RenderBody()
+            @if (!string.IsNullOrWhiteSpace(ViewBag.message))
+            {
+                <div class="custom-alert">
+                    <div class="alert alert-success alert-dismissible my-alert my-alert-dismissible fade show" role="alert">
+                        @ViewBag.message
+                        <button type="button" class="btn-close fs-6" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(ViewBag.TB))
+            {
+                <div class="custom-alert">
+                    <div class="alert alert-success alert-dismissible my-alert my-alert-dismissible fade show" role="alert">
+                        @ViewBag.TB
+                        <button type="button" class="btn-close fs-6" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center text-muted">
+                Designed and Developed by <a href="~/admin">Phan Phương</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="~/contents/nhanvien/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/contents/nhanvien/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="~/contents/nhanvien/dist/js/app-style-switcher.js"></script>
+    <script src="~/contents/nhanvien/dist/js/feather.min.js"></script>
+    <script src="~/contents/nhanvien/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/contents/nhanvien/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/contents/nhanvien/dist/js/custom.min.js"></script>
+    <script src="~/contents/shared/jquery.js"></script>
+    <!--This page JavaScript -->
+    <script src="~/contents/nhanvien/assets/extra-libs/c3/d3.min.js"></script>
+    <script src="~/contents/nhanvien/assets/extra-libs/c3/c3.min.js"></script>
+    <script src="~/contents/nhanvien/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="~/contents/nhanvien/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/contents/nhanvien/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/contents/nhanvien/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/contents/nhanvien/dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="~/contents/nhanvien/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/contents/nhanvien/assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+    <script src="~/contents/nhanvien/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script src="@("https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js")" crossorigin="anonymous"></script>
+    <script src="@("https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿.topbar .top-navbar {
+    min-height: 55px;
+}
+.topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
+    line-height: 55px;
+}
+.topbar .top-navbar .navbar-header {
+    line-height: 35px;
+}
+.topbar .top-navbar .navbar-header .navbar-brand {
+    height: 55px;
+}
+.topbar .top-navbar .navbar-header .navbar-brand a p {
+    margin-bottom: 0;
+}
+.left-sidebar{
+    padding-top:55px;
+}
+#main-wrapper[data-layout=vertical][data-header-position=fixed] .page-wrapper {
+    padding-top: 50px;
+}
+
+.custom-select-set {
+    height: 44px;
+    line-height: 25px;
+    padding: 10px 35px 13px 10px;
+}
+
+.table-pin-field {
+    border-collapse: collapse;
+}
+
+.table-pin-field thead th {
+    position: sticky;
+    top: 0;
+    background: #22ca80;
+    z-index: 2;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.fs-7{
+    font-size:0.85em;
+}
+.fs-2-5{
+    font-size:1.5em;
+}
+.ct-chart .ct-label.ct-horizontal {
+    text-anchor: middle !important;
+}
+
+html body .font-8 {
+    font-size: 8px;
+}
+
+.nhapxuat-sanpham .row {
+    --bs-gutter-x: 10px;
+}
+
+.custom-alert {
+    position: fixed;
+    top: 8em;
+    right: 20px; /* Default for larger screens */
+    z-index: 1055;
+    max-width: 400px;
+}
+
+.my-alert {
+    padding: 0.5rem 0.5rem;
+}
+
+.my-alert-dismissible {
+    padding-right: 3rem;
+}
+
+    .my-alert-dismissible .btn-close {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.8em;
+    }
+
+    @media only screen and (max-width: 640px) {
+        .card-body {
+            padding: 10px 8px;
+        }
+    }
+
+
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            table th, table td {
+                border: 1px solid #000;
+                padding: 4px;
+            }
+    }

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Yêu cầu xác thực tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+<style>
+    .card {
+        <!-- width: 400px;-->
+        border: none;
+        height: 300px;
+        box-shadow: 0px 5px 20px 0px #d2dae3;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+        .card h6 {
+            color: red;
+            font-size: 20px
+        }
+
+    .inputs input {
+        width: 40px;
+        height: 40px
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0
+    }
+
+    .card-2 {
+        background-color: #fff;
+        padding: 10px;
+         width: 350px;
+        height: 100px;
+        bottom: -50px;
+        left: 20px;
+        position: absolute;
+        border-radius: 5px
+    }
+
+        .card-2 .content {
+            margin-top: 50px
+        }
+
+            .card-2 .content a {
+                color: red
+            }
+
+    .form-control:focus {
+        box-shadow: none;
+        border: 2px solid red
+    }
+
+    .validate {
+        border-radius: 20px;
+        height: 40px;
+        background-color: red;
+        border: 1px solid red;
+        width: 140px
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="height:500px">
+    <div class="position-relative p-2 d-flex justify-content-center row">
+        <div class="card p-2 text-center col-md-7">
+            <h6>Tài khoản của bạn chưa được xác thực!</h6>
+            <div> <span>Để tiếp tục sử dụng dịch vụ, bạn vui lòng xác thực tài khoản bằng mã OTP được gửi qua email của bạn. </span> </div>
+           
+            <div class="mt-5">
+                <form method="post" action="/khachhang/guixacthuc">
+                    <button type="submit" id="validateBtn" class="btn btn-primary px-4">Xác thực ngay</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

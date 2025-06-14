@@ -1,0 +1,228 @@
+﻿@model ChinChunPetShop.Models.ViewModel.CTDonHang
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int time = ViewBag.Time;
+}
+<div class="container-fluid">
+
+    <div class="container">
+        <!-- Title -->
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <h2 class="h5 mb-0"><a href="#" class="text-muted"></a>Đơn hàng #@Model.MaDH</h2>
+        </div>
+
+        <!-- Main content -->
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Details -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div>
+                                <span class="me-3">@string.Format("{0:dd/MM/yyyy - HH:mm:ss}", Model.NgayMuaHang)</span>
+                                <span class="me-3">@Model.MaPTTTNavigation.TenPTTT</span>
+                                <span class="badge rounded-pill bg-info">@(Model.LoaiDH?"Mua tại cửa hàng":"Giao hàng")</span>
+                            </div>
+                            @{
+                                if(Model.ThanhToan == true)
+                                {
+                                    <div class="d-flex text-success">
+                                        Đã thanh toán
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex text-danger">
+                                        Chưa thanh toán
+                                    </div>
+                                }
+                            }
+                            
+                        </div>
+                        <table class="table table-borderless">
+                            <tbody>
+                                @foreach(var ctdh in Model.CTDHs)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex mb-2">
+                                                <div class="flex-shrink-0">
+                                                    <img src="~/images/sanpham/@(string.IsNullOrWhiteSpace(ctdh.MaSPNavigation.HinhAnh)?"petshop_sp.png":ctdh.MaSPNavigation.HinhAnh)" alt="" width="35" class="img-fluid">
+                                                </div>
+                                                <div class="flex-lg-grow-1 ms-3">
+                                                    <h6 class="small mb-0"><a href="#" class="text-reset">@ctdh.MaSPNavigation.TenSP</a></h6>
+                                                    <span class="small">Nhãn hiệu: @ctdh.MaSPNavigation.MaNhanHieuNavigation.TenNhanHieu</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>@ctdh.SoLuong</td>
+                                        <td class="text-end">@((ctdh.SoLuong*ctdh.DonGia).ToString("#,##0" + "₫"))</td>
+                                    </tr>
+                                }
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">Giá trị sản phẩm</td>
+                                    <td class="text-end">@Model.TongGiaTri.ToString("#,##0" + "₫")</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Phí giao hàng</td>
+                                    <td class="text-end">@Model.PhiGiaoHang.ToString("#,##0" + "₫")</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Giảm giá</td>
+                                    <td class="text-danger text-end">0₫</td>
+                                </tr>
+                                <tr class="fw-bold">
+                                    <td colspan="2">Tổng tiền</td>
+                                    <td class="text-end">@((Model.PhiGiaoHang + Model.TongGiaTri).ToString("#,##0" + "₫"))</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- Payment -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="h6">Phương thức thanh toán</h3>
+                                <p>
+                                    @Model.MaPTTTNavigation.TenPTTT <br>
+                                    Tổng tiền: @((Model.PhiGiaoHang + Model.TongGiaTri).ToString("#,##0" + "₫")) <span class="badge bg-success rounded-pill">@(Model.ThanhToan==true?"Đã thanh toán":"Chưa thanh toán")  </span>
+                                </p>
+                                @if (Model.ThanhToan == false)
+                                {
+                                    <p>
+                                        Bạn lòng thanh toán trong vòng: <span id="countdown" class="text-danger">Đang tải...</span>
+                                    </p>
+                                }
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <h3 class="h6">Địa chỉ giao hàng</h3>
+                                <address>
+                                    <strong>@Model.TenNguoiNhan</strong><br>
+                                    @Model.DiaChiGiaoHang<br>
+                                    <abbr title="Số điện thoại">SĐT:</abbr> @Model.SDTNguoiNhan
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Customer Notes -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="h6">Ghi chú</h3>
+                        <p>@(!string.IsNullOrEmpty(@Model.GhiChu)?Model.GhiChu:"Không có")</p>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="h6">Lưu ý</h3>
+                        <p>Quý kháchh vui lòng thanh toán trước mới có thể hoàn tất việc mua hàng. Sản phẩm sẽ được giao đến bạn trong vòng 3-4 ngày. </p>
+                    </div>
+                </div>
+                <div class="mb-4 d-flex justify-content-center">
+                    @if (ViewBag.CheckHuyDon == true)
+                    {
+                        <form action="~/khachhang/dondadat/huydon" method="post">
+                            <input type="hidden" name="MaDonHang" value="@Model.MaDH" />
+                            <button class="btn btn-outline-danger me-3">Hủy đơn hàng</button>
+                        </form>
+                       
+                    }
+                    
+                    @if (Model.ThanhToan == false && time!=0)
+                    {
+                        <button class="btn btn-primary">Thanh toán</button>
+                    }
+                    @if (ViewBag.CheckTraHang == true)
+                    {
+                        <button class="btn btn-outline-danger me-3" id="TraHang" @(Model.TraHang == true ? "" : "disabled") data-madonhang="@Model.MaDH">Trả hàng</button>
+                    }
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        var secondsLeft = @time;
+
+        function formatTime(s) {
+            var h = Math.floor(s / 3600);
+            var m = Math.floor((s % 3600) / 60);
+            var s = s % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function startCountdown() {
+            if (secondsLeft <= 0) {
+                $('#countdown').text("Hết thời gian thanh toán");
+                return;
+            }
+
+            $('#countdown').text(formatTime(secondsLeft));
+
+            var timer = setInterval(function () {
+                secondsLeft--;
+                $('#countdown').text(formatTime(secondsLeft));
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timer);
+                    $('#countdown').text("Hết thời gian thanh toán");
+                    // Optional: Gửi AJAX để cập nhật trạng thái đơn hàng
+                }
+            }, 1000);
+        }
+
+        startCountdown();
+    });
+</script>
+
+
+<div class="modal fade" id="TraHangModal" tabindex="-1" aria-labelledby="addToCartLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:31rem">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToCartLabel">Yêu cầu trả hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Product Info -->
+                <div class="d-flex align-items-center mb-3">
+                    <div>
+                        <h6 class="mb-1">Mã đơn hàng: <span id="pMaDonHang"></span> </h6>
+                        <p class="mb-0 text-muted">Tình trạng thanh toán: <span id="ptttt"></span></p>
+                    </div>
+                </div>
+                <!-- Form -->
+                <form id="addToCartForm" method="post" action="~/donhang/trahang">
+                    <input type="hidden" id="MaDonHang" name="MaDonHang" value="">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="lydotra" class="form-label ipt">Lý do trả hàng</label>
+
+                            <textarea id="lydotra" name="LyDoTra" class="form-control" required placeholder="Nhập lý do trả hàng"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

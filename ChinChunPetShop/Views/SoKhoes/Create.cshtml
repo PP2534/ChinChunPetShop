@@ -1,0 +1,136 @@
+﻿@using ChinChunPetShop.Models.Entity
+@using ChinChunPetShop.Models.ViewModel
+@model IEnumerable<ChinChunPetShop.Models.ViewModel.CTCTGiaoDich>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    SoKho sk = ViewBag.SoKho;
+    List<CTSanPham> dssp = ViewBag.SP;
+    List<CTCTGiaoDich> dsdg = Model==null?new List<CTCTGiaoDich>(): Model.ToList();
+}
+<form method="post" id="form_taonhapxuat">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body nhapxuat-sanpham">
+                    <div class="d-flex justify-content-between align-content-center mb-3">
+                        <div>
+                            <h4 class="card-title fw-bold fs-3">Tạo nhập xuất hàng</h4>
+                            <h6 class="card-subtitle">
+                            
+                            </h6>
+                        </div>
+                    </div>
+                    <hr />
+                   @if (dsdg != null && dsdg.Count > 0)
+		            {
+                        @for (int i = 0; i < dsdg.Count; i++)
+				        {
+                            CTCTGiaoDich gd = dsdg[i];
+                            <div class="row cart-item mb-3 sanpham-index">
+						        <div class="col-md-2">
+								     <img src="~/images/sanpham/@(string.IsNullOrWhiteSpace(gd.SanPham.HinhAnh)?"petshop_sp.png":gd.SanPham.HinhAnh)" alt="Sản phẩm" class="img-fluid rounded hinhanh">
+						        </div>
+						        <div class="col-md-4 border border-1">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title pt-1 tensanpham">@gd.SanPham.TenSP</h5>
+                                            <input type="hidden" class="masanpham" name="CTGD[@i]MaSP" value="" />
+                                            <div type="button" class="them-san-pham"><i class="bi bi-pencil-square"></i></div>
+                                    </div>
+
+                                    <div class="text-muted">Phân loại: <span class="phanloai">@gd.SanPham.TenLoaiSP</span></div>
+                                    <div class="text-muted">Nhãn hiệu: <span class="nhanhieu">@gd.SanPham.TenLoaiSP</span></div>
+						        </div>
+						        <div class="col-md-2">
+							        <div class="input-group product-qty-xn">
+                                         <label for="quantity" class="col-form-label fw-bold ipt w-100 fs-7">Số lượng:</label>
+								        <button class="btn btn-outline-primary btn-sm quantity-left-minus" type="button" data-type="minus">-</button>
+
+								        <input style="max-width:100px" id="quantity" min="1" max="@gd.SanPham.SLCoTheBan" name="CTGD[@i].SoLuong" type="text" class="form-control form-control-sm text-center quantity-input quantity-xn-change" value="@gd.SoLuong">
+								        <button class="btn btn-outline-primary btn-sm quantity-right-plus" type="button" data-type="plus">+</button>
+                                     </div>
+						        </div>
+                                <div class="col-md-2">
+                                        <div class="input-group">
+                                        <label for="dongia" class="col-form-label fw-bold ipt w-100 fs-7">Đơn giá (VNĐ):</label>
+                                            <input type="number" min="0" class="form-control form-control-sm not-null" id="dongia" name="CTDG[@i].DonGia" placeholder="Nhập đơn giá...">
+                                    </div>
+                                </div>
+						        <div class="col-md-2 text-end">
+							        <p class="fw-bold">@gd.DonGia.ToString("#,##0" + "₫")</p>
+							        <button type="button" class="btn btn-sm btn-outline-danger delete-sanpham" >
+								        <i class="bi bi-trash"></i>
+							        </button>
+						        </div>
+
+					        </div>
+					        <hr/>
+							
+				        }
+				    }
+                    <div class="row cart-item button-sanpham-index">
+                         <button type="button" class="btn btn-outline-primary them-sp">
+                            Thêm sản phẩm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Cart Summary -->
+            <div class="card cart-summary">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Sản phẩm đã chọn</h5>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Tổng tiền</span>
+                        <span>0</span>
+                    </div>
+                    <div class="me-2 d-flex flex-column mb-3 mb-md-0">
+                        <label for="to">Loại giao dịch:</label>
+                            <select class="form-select" name="LoaiGiaoDich" onchange="this.form.submit()">
+                                <option selected="@(sk != null && sk.LoaiGiaoDich == true ? "selected" : null)" value="true">Nhập hàng</option>
+                            <option selected="@(sk != null && sk.LoaiGiaoDich == false ? "selected" : null)" value="false">Xuất hàng</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <button class="btn btn-primary  w-100">Tạo</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="them_sanpham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="exampleModalLabel">Thêm sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <label for="masp" class="col-form-label fw-bold ipt">Mã sản phẩm:</label>
+                        <select class="form-control selectpicker" data-live-search="true" id="MaSP" name="ctgd.MaSP" onchange="">
+                            @foreach (var sp in dssp)
+                            {
+                                <option value="@sp.MaSP" data-tokens="@sp.MaSP @sp.TenSP @sp.MaSKU">@sp.MaSP (@sp.TenSP)</option>
+                            }
+                        </select>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="tensp" class="col-form-label fw-bold">Nhãn hiệu:</label>
+                        <input disabled readonly type="text" class="form-control" id="tensp" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary apdungsanpham">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+﻿@model ChinChunPetShop.Models.Entity.KhachHang
+@{
+    ViewData["Title"] = "Xác thực tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var email = Model.Email.Substring(0, 3) + new string('*', Model.Email.Length-6) + Model.Email.Substring(Model.Email.Length-4,4);
+}
+
+<style>
+    .card {
+        <!-- width: 400px; -->
+        border: none;
+        min-height: 300px;
+        box-shadow: 0px 5px 20px 0px #d2dae3;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+        .card h6 {
+            color: red;
+            font-size: 20px
+        }
+
+    .inputs input {
+        width: 40px;
+        height: 40px
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0
+    }
+
+    .card-2 {
+        background-color: #fff;
+        padding: 10px;
+        width: 350px;
+        height: 100px;
+        bottom: -50px;
+        left: 20px;
+        position: absolute;
+        border-radius: 5px
+    }
+
+        .card-2 .content {
+            margin-top: 50px
+        }
+            <!--
+            .card-2 .content a {
+                color: red
+            }
+    -->
+
+    .form-control:focus {
+        box-shadow: none;
+        border: 2px solid var(--primary);
+    }
+
+    .validate {
+        border-radius: 20px;
+        height: 40px;
+        <!--background-color: red;-->
+        border: 1px solid red;
+        width: 140px
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="height:500px">
+    <div class="position-relative p-2 d-flex justify-content-center row">
+        <div class="card p-2 text-center col-md-10">
+            <h6>Vui lòng nhập mã OTP <br> để xác thực tài khoản của bạn</h6>
+            <div> <span>Một mã OTP (gồm 6 ký tự số) đã được gửi đến địa chỉ email </span> <small id="maskedNumber">@email</small> </div>
+            @if (!string.IsNullOrEmpty(ViewBag.error))
+            {
+                <div class="text-danger">
+
+                    @ViewBag.error
+                </div>
+                <form action="~/khachhang/guixacthuc" method="post" class="mt-4">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            Gửi lại mã xác thực
+                        </button>
+                    </div>
+                </form>
+
+            }
+            @if (!string.IsNullOrEmpty(ViewBag.error2))
+            {
+                <div class="text-danger">
+
+                    @ViewBag.error2
+                </div>
+            }
+            <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="first" maxlength="1" />
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="second" maxlength="1" />
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="third" maxlength="1" />
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="fourth" maxlength="1" />
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="fifth" maxlength="1" />
+                <input class="m-2 text-center form-control rounded not-null" feedback-is_invaild="" type="text" id="sixth" maxlength="1" />
+            </div>
+            <div class="mt-5">
+                <button id="validateBtn" class="btn btn-primary px-4 submit-vadidate validate">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="d-none" id="otpForm" method="post" action="~/khachhang/xacthuc">
+    <input type="hidden" name="inputcode" id="xacthuc" >
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function OTPInput() {
+            const inputs = document.querySelectorAll('#otp > input');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].addEventListener('input', function () {
+                    if (this.value.length > 1) {
+                        this.value = this.value[0]; //
+                    }
+                    if (this.value !== '' && i < inputs.length - 1) {
+                        inputs[i + 1].focus(); //
+                    }
+                });
+
+                inputs[i].addEventListener('keydown', function (event) {
+                    if (event.key === 'Backspace') {
+                        this.value = '';
+                        if (i > 0) {
+                            inputs[i - 1].focus();
+                        }
+                    }
+                });
+            }
+        }
+
+        OTPInput();
+
+        const validateBtn = document.getElementById('validateBtn');
+        validateBtn.addEventListener('click', function () {
+            let otp = '';
+            document.querySelectorAll('#otp > input').forEach(input => otp += input.value);
+            // alert(`Entered OTP: ${otp}`);
+            if(otp.length==6){
+                document.getElementById('xacthuc').value = otp;
+                document.getElementById('otpForm').submit();
+             }
+        });
+    });
+</script>

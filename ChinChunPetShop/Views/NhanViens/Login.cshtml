@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Đăng nhập hệ thống bán hàng - ChinChun PetShop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../Images/hp-logo-3-off.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/contents/nhanvien/login/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+
+            <div class="wrap-login100">
+                <div class="w-100 mb-5 text-center">
+                    <h2>ChinChun - Hệ thống quản lý</h2>
+
+                </div>
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/contents/nhanvien/login/images/img-01.png" alt="IMG">
+                </div>
+
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title">
+                        Chào mừng quay trở lại!
+                    </span>
+                    <p class="text-danger mb-3">@ViewBag.TB</p>
+                    <p class="text-primary mb-3">@ViewBag.TB2</p>
+                    <div class="wrap-input100 validate-input" data-validate="Địa chỉ email là bắt buộc: example@abc.xyz">
+                        <input class="input100" type="text" name="Email" value="@(ViewBag.Email!=null?ViewBag.Email:"")" placeholder="Địa chỉ email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Mật khẩu là bắt buộc">
+                        <input class="input100" type="password" name="MatKhau" placeholder="Mật khẩu">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Đăng nhập
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Quên
+                        </span>
+                        <a class="txt2" href="~/forgotpassword">
+                            Email / mật khẩu
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-50">
+                        <a class="txt2" href="~/khachhang/dangnhap">
+                            Dành cho khách hàng
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="~/contents/nhanvien/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/contents/nhanvien/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/contents/nhanvien/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/contents/nhanvien/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/contents/nhanvien/login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/contents/nhanvien/login/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+﻿@using ChinChunPetShop.Models.Entity
+@using ChinChunPetShop.Models.ViewModel
+@model IEnumerable<ChinChunPetShop.Models.ViewModel.CTGioHang>
+
+@{
+    ViewData["Title"] = "Create";
+    DonHang dh = ViewBag.DonHang;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var i = 0;
+}
+<style>
+    .card {
+        margin-bottom: 24px;
+        -webkit-box-shadow: 0 2px 3px #e4e8f0;
+        box-shadow: 0 2px 3px #e4e8f0;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #eff0f2;
+        border-radius: 1rem;
+    }
+
+    .activity-checkout {
+        list-style: none
+    }
+
+        .activity-checkout .checkout-icon {
+            position: absolute;
+            top: -4px;
+            left: -24px
+        }
+
+        .activity-checkout .checkout-item {
+            position: relative;
+            padding-bottom: 24px;
+            padding-left: 35px;
+            border-left: 2px solid #f5f6f8
+        }
+
+            .activity-checkout .checkout-item:first-child {
+                border-color: #3b76e1
+            }
+
+                .activity-checkout .checkout-item:first-child:after {
+                    background-color: #3b76e1
+                }
+
+            .activity-checkout .checkout-item:last-child {
+                border-color: transparent
+            }
+
+            .activity-checkout .checkout-item.crypto-activity {
+                margin-left: 50px
+            }
+
+            .activity-checkout .checkout-item .crypto-date {
+                position: absolute;
+                top: 3px;
+                left: -65px
+            }
+
+
+
+    .avatar-xs {
+        height: 1rem;
+        width: 1rem
+    }
+
+    .avatar-sm {
+        height: 2rem;
+        width: 2rem
+    }
+
+    .avatar {
+        height: 3rem;
+        width: 3rem
+    }
+
+    .avatar-md {
+        height: 4rem;
+        width: 4rem
+    }
+
+    .avatar-lg {
+        height: 5rem;
+        width: 5rem
+    }
+
+    .avatar-xl {
+        height: 6rem;
+        width: 6rem
+    }
+
+    .avatar-title {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #3b76e1;
+        color: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: 500;
+        height: 100%;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%
+    }
+
+    .avatar-group {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding-left: 8px
+    }
+
+        .avatar-group .avatar-group-item {
+            margin-left: -8px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            -webkit-transition: all .2s;
+            transition: all .2s
+        }
+
+            .avatar-group .avatar-group-item:hover {
+                position: relative;
+                -webkit-transform: translateY(-2px);
+                transform: translateY(-2px)
+            }
+
+    .card-radio {
+        background-color: #fff;
+        border: 2px solid #eff0f2;
+        border-radius: .75rem;
+        padding: .5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block
+    }
+
+        .card-radio:hover {
+            cursor: pointer
+        }
+
+    .card-radio-label {
+        display: block
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px
+    }
+
+    .card-radio-input {
+        display: none
+    }
+
+        .card-radio-input:checked + .card-radio {
+            border-color: #3b76e1 !important
+        }
+
+
+    .font-size-16 {
+        font-size: 16px !important;
+    }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.47rem 0.75rem;
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #545965;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #e2e5e8;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.75rem;
+        -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px;
+    }
+
+    .ribbon {
+        position: absolute;
+        right: -26px;
+        top: 20px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 1px 22px;
+        font-size: 13px;
+        font-weight: 500
+    }
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<div class="container mt-5">
+    <h3>Đặt hàng</h3>
+    <div class="row">
+        <div class="col-xl-8">
+            <form method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <ol class="activity-checkout mb-0 px-4 mt-3">
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bxs-receipt text-white font-size-20"></i>
+                                    </div>
+                                </div>
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Thông tin người nhận</h5>
+                                        <p class="text-muted text-truncate mb-4">Vui lòng cung cấp thông tin và địa chỉ nhận hàng bên dưới</p>
+                                        <div class="mb-3">
+                                       
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label ipt" for="billing-name">Họ và tên</label>
+                                                                <input type="text" class="form-control not-null" id="billing-name" name="TenNguoiNhan" placeholder="Nhập họ và tên người nhận..." value="@dh.TenNguoiNhan">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label ipt" for="billing-phone">Số điện thoại</label>
+                                                                <input type="text" class="form-control not-null" id="billing-phone" name="SDTNguoiNhan" placeholder="Nhập số điện thoại người nhận..." value="@dh.SDTNguoiNhan">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label ipt" for="billing-address">Địa chỉ giao hàng</label>
+                                                        <textarea class="form-control not-null" id="billing-address" rows="3" name="DiaChiGiaoHang" placeholder="Vui lòng nhập đầy đủ địa chỉ giao hàng"></textarea>
+                                                    </div>
+
+                                                </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bxs-wallet-alt text-white font-size-20"></i>
+                                    </div>
+                                </div>
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Thông tin thanh toán</h5>
+                                        <p class="text-muted text-truncate mb-4">Vui lòng cung cấp thông tin thanh toán</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-size-14 mb-3 ipt">Hình thức thanh toán:</h5>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div data-bs-toggle="collapse">
+                                                    <label class="card-radio-label">
+                                                        <input type="radio" name="pay-method" disabled id="pay-methodoption1" class="card-radio-input">
+                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                            <i class="bx bx-credit-card d-block h2 mb-3"></i>
+                                                            Chuyển khoản online
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div>
+                                                    <label class="card-radio-label">
+                                                        <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input" checked="">
+
+                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                            <i class="bx bx-money d-block h2 mb-3"></i>
+                                                            <span>Thanh toán sau</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <input type="hidden" name="PhiGiaoHang" value="@ViewBag.PhiGiaoHang" />
+                <div class="row my-4">
+                    <div class="col">
+                        <a href="~/sanpham" class="btn btn-link text-muted">
+                            <i class="mdi mdi-arrow-left me-1"></i> Tiếp tục mua sắm
+                        </a>
+                    </div> <!-- end col -->
+                    <div class="col">
+                        <div class="text-end mt-2 mt-sm-0">
+                            <button class="btn btn-primary submit-vadidate">
+                                <i class="mdi mdi-cart-outline me-1"></i> Đặt hàng
+                            </button>
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row-->
+                @foreach (CTGioHang gh in Model)
+                {
+                    <input type="hidden" name="CTDH[@i].MaSP" value="@gh.MaSP" />
+                    <input type="hidden" name="CTDH[@i].DonGia" value="@gh.DonGia" />
+                    <input type="hidden" name="CTDH[@i].SoLuong" value="@gh.SoLuong">
+                    i++;
+                }
+            </form>
+        </div>
+        <div class="col-xl-4">
+            <div class="card checkout-order-summary">
+                <div class="card-body">
+                    <div class="p-3 bg-light mb-3">
+                        <h5 class="font-size-16 mb-0">Thông tin đơn hàng <span class="float-end ms-2">#@dh.MaDH</span></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-centered mb-0 table-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0" style="width: 110px;" scope="col">Tên sản phẩm</th>
+                                    <th class="border-top-0" scope="col">Mô tả</th>
+                                    <th class="border-top-0" scope="col">Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @foreach(CTGioHang gh in Model)
+                               {
+                                    <tr>
+                                        <th scope="row"><img src="~/images/sanpham/@(String.IsNullOrEmpty(gh.MaSPNavigation.HinhAnh)?"petshop_sp.png":gh.MaSPNavigation.HinhAnh)" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                                        <td>
+                                            <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">@gh.MaSPNavigation.TenSP</a></h5>
+                                            <p>@gh.TenNhanHieu</p>
+                                            <p class="text-muted mb-0 mt-1">@gh.DonGia.ToString("#,##0" + "₫") x @gh.SoLuong</p>
+                                        </td>
+                                        <td>@((gh.DonGia * gh.SoLuong).ToString("#,##0" + "₫"))</td>
+                                    </tr>
+                               }                                <tr>
+                                    <td colspan="2">
+                                        <h5 class="font-size-14 m-0">Tổng tiền hàng:</h5>
+                                    </td>
+                                    <td>
+                                        @ViewBag.TongTienMua.ToString("#,##0" + "₫")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h5 class="font-size-14 m-0">Giảm giá:</h5>
+                                    </td>
+                                    <td>
+                                        -0₫
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <h5 class="font-size-14 m-0">Phí vận chuyển:</h5>
+                                    </td>
+                                    <td>
+                                        @ViewBag.PhiGiaoHang.ToString("#,##0" + "₫")
+                                    </td>
+                                </tr>
+                               
+
+                                <tr class="bg-light">
+                                    <td colspan="2">
+                                        <h5 class="font-size-14 m-0">Tổng tiền:</h5>
+                                    </td>
+                                    <td>
+                                        @((ViewBag.TongTienMua+ViewBag.PhiGiaoHang).ToString("#,##0" + "₫"))
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+</div>

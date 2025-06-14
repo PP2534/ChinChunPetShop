@@ -1,0 +1,156 @@
+﻿@model IEnumerable<ChinChunPetShop.Models.ViewModel.DTTheoNhanHieu>
+@{
+    ViewData["Title"] = "Thống kê doanh thu theo nhãn hiệu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.active = "BC_NH";
+    string to = DateTime.Parse(ViewBag.to).ToString("yyyy-MM-dd");
+    string from = DateTime.Parse(ViewBag.from).ToString("yyyy-MM-dd");
+
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-content-center mb-3 flex-wrap">
+                    <div class="mb-3 mb-md-0">
+                        <h4 class="card-title fw-bold fs-3">Thống kê doanh thu theo nhãn hiệu</h4>
+                        <h6 class="card-subtitle">
+                        </h6>
+                        <div>
+                            <form class="d-flex flex-wrap" method="post" id="form_tk">
+                                <div class="me-2 d-flex flex-column mb-3 mb-md-0">
+                                    <label for="to">Thời gian từ:</label>
+                                    <div class="input-group" id="datepicker-from" data-target-input="nearest" data-target-toggle="nearest">
+                                        <input id="from" name="from" type="text" class="form-control datetimepicker-input" data-target="#datepicker-from" onchange="this.form.submit()" />
+                                        <span class="input-group-text" data-td-target="#datepicker-from" data-td-toggle="datetimepicker">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="me-2 d-flex flex-column mb-3 mb-md-0">
+                                    <label for="to">Đến:</label>
+                                    <div class="input-group" id="datepicker-to" data-target-input="nearest" data-target-toggle="nearest">
+                                        <input id="to" name="to" type="text" class="form-control datetimepicker-input" data-target="#datepicker-to" onchange="this.form.submit()" />
+                                        <span class="input-group-text" data-td-target="#datepicker-to" data-td-toggle="datetimepicker">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="loaiBaoCao" value="DoanhThuTheoNhanHieu" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="mb-3 text-end">
+                            <button type="submit" class="btn btn-primary" formaction="~/admin/baocao/xuatbanin" formmethod="post" form="form_tk" formtarget="_blank">In báo cáo</button>
+                            <button type="submit" class="btn btn-outline-primary" formaction="~/admin/baocao/theonhanhieu/xuatexcel" formmethod="post" form="form_tk" formtarget="_blank">Xuất Excel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="table_database" class="table border table-striped table-bordered text-nowrap"
+                           style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="fw-bold">Nhãn hiệu</th>
+                                <th class="fw-bold">Tổng số lượng đơn hàng</th>
+                                <th class="fw-bold">Số lượng đơn hàng đã trả</th>
+                                <th class="fw-bold">Tổng tiền đã trả lại</th>
+                                <th class="fw-bold">Tổng doanh thu</th>
+                                <th class="fw-bold">Tổng giá vốn</th>
+                                <th class="fw-bold">Lợi nhuận</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var tk in Model)
+                                {
+                                    <tr>
+                                        <td>@tk.NhanHieu</td>
+                                        <td>@tk.TongSLDonHang</td>
+                                        <td>@tk.SLDonHangTra</td>
+                                        <td>@tk.TongTienTraLai.ToString("#,##0" + "₫")</td>
+                                        <td>@tk.TongDoanhThu.ToString("#,##0" + "₫")</td>
+                                        <td>@tk.TongGiaVon.ToString("#,##0" + "₫")</td>
+                                        <td>@tk.LoiNhuan.ToString("#,##0" + "₫")</td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <!--
+                                <th>Nhãn hiệu</th>
+                                <th>Tổng số lượng đơn hàng</th>
+                                <th>Số lượng đơn hàng đã trả</th>
+                                <th>Tổng tiền đã trả lại</th>
+                                <th>Tổng doanh thu</th>
+                                <th>Tổng giá vốn</th>
+								<th>Lợi nhuận</th>-->
+                                @if (Model != null)
+                                {
+                                <tr>
+                                    <td class="fw-bold">Tổng</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.TongSLDonHang)</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.SLDonHangTra)</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.TongTienTraLai).ToString("#,##0" + "₫")</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.TongDoanhThu).ToString("#,##0" + "₫")</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.TongGiaVon).ToString("#,##0" + "₫")</td>
+                                    <td class="fw-bold">@Model.Sum((m) => m.LoiNhuan).ToString("#,##0" + "₫")</td>
+                                </tr>
+                                }
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        new tempusDominus.TempusDominus(document.getElementById('datepicker-from'), {
+            defaultDate: new Date("@(from)"),
+            localization: {
+                locale: 'vi',
+                format: "@ViewBag.format",
+                dayViewHeaderFormat: @Html.Raw(Json.Serialize(ViewBag.format_header)),
+            },
+            display: {
+                components: {
+                    calendar: true,
+                    date: true,
+                    month: true,
+                    year: true,
+                    decades: true,
+                    clock: false
+                },
+            }
+        });
+        new tempusDominus.TempusDominus(document.getElementById('datepicker-to'), {
+            defaultDate: new Date("@(to)"),
+            localization: {
+                locale: 'vi',
+                format: "@ViewBag.format",
+                dayViewHeaderFormat: @Html.Raw(Json.Serialize(ViewBag.format_header)),
+            },
+            display: {
+                components: {
+                    calendar: true,
+                    date: true,
+                    month: true,
+                    year: true,
+                    decades: true,
+                    clock: false
+                },
+            }
+        });
+
+    </script>
+
+}

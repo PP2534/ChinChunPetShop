@@ -1,0 +1,126 @@
+﻿@using ChinChunPetShop.Models.Entity
+@model IEnumerable<ChinChunPetShop.Models.Entity.GioHang>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var checkedItems = ViewBag.Checked as Dictionary<string, string>;
+}
+
+<div class="container py-5">
+    <h1 class="mb-5">Giỏ hàng</h1>
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Cart Items -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    @if (ViewBag.GH != null && ViewBag.GH > 0)
+                    {
+                        <form method="post">
+                            @for (int i = 0; i < ViewBag.GH; i++)
+                            {
+                                GioHang gh = Model.ElementAt(i);
+                                
+                                <div class="row cart-item  @(i!=ViewBag.GH-1?"mb-3":"")">
+                                    
+                                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                                        <input type="checkbox" @(checkedItems != null && checkedItems.ContainsKey(gh.MaGH) ? "checked" : "") id="cart-check-mua" class="form-check-input" name="Checked[@gh.MaGH]" value="@gh.MaGH" onchange="this.form.submit()" />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <a href="~/sanpham/@gh.MaSP">
+                                        <img src="~/images/sanpham/@(string.IsNullOrWhiteSpace(gh.MaSPNavigation.HinhAnh)?"petshop_sp.png":gh.MaSPNavigation.HinhAnh)" alt="Product 1" class="img-fluid rounded">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="~/sanpham/@gh.MaSP">
+                                        <h5 class="card-title">@gh.MaSPNavigation.TenSP</h5>
+                                        <p class="text-muted">Phân loại: @gh.MaSPNavigation.MaLoaiSPNavigation.TenLoaiSP</p>
+                                        </a>    
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group product-qty">
+                                            <button class="btn btn-outline-primary btn-sm quantity-left-minus" type="button" data-type="minus">-</button>
+                                           
+                                            <input style="max-width:100px" id="quantity" min="1" max="@gh.MaSPNavigation.TonKhos.Select(m=>m.SLCoTheBan).SingleOrDefault()" name="SoLuong[@gh.MaGH]" type="text" class="form-control  form-control-sm text-center quantity-input quantity-cart-change" value="@gh.SoLuong">
+                                            <button class="btn btn-outline-primary btn-sm quantity-right-plus" type="button" data-type="plus">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <p class="fw-bold">@gh.DonGia.ToString("#,##0" + "₫")</p>
+                                        <button type="button" class="btn btn-sm btn-outline-danger submit-delete-cart" data-mgh="@gh.MaGH">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                                
+                                if (i + 1 != ViewBag.GH)
+                                {
+                                    <hr />
+                                }
+                            }
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="fw-semibold">Chưa có sản phẩm nào trong giỏ hàng</p>  
+                    }
+                   
+                </div>
+            </div>
+            <!-- Continue Shopping Button -->
+            <div class="text-start mb-4">
+                <a href="~/sanpham" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left me-2"></i>Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Cart Summary -->
+            <div class="card cart-summary">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Sản phẩm đã chọn</h5>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Tổng tiền hàng</span>
+                        <span>@ViewBag.TongTienMua.ToString("#,##0" + "₫")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Phí giao hàng</span>
+                        <span>@ViewBag.PhiGiaoHang.ToString("#,##0" + "₫")</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <strong>Tổng cộng</strong>
+                        <strong>@((ViewBag.TongTienMua+ ViewBag.PhiGiaoHang).ToString("#,##0" + "₫"))</strong>
+                    </div>
+                    <form method="post" action="~/khachhang/donhang/taodonhang">
+                       @if (checkedItems != null && checkedItems.Count > 0)
+                            {
+                              int i = 0;
+                              foreach (var x in checkedItems)
+                              {
+                                <input type="hidden" name="GHS[@(i++)]" value="@x.Value" />
+                              }
+                            <button class="btn btn-primary  w-100">Thanh toán</button>
+                        }
+                    </form>
+                    @if (checkedItems == null || checkedItems.Count == 0)
+                    {
+                        <button type="button" class="btn btn-primary w-100" onclick="showtb()" >Thanh toán</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showtb(){
+        alert("Bạn chưa chọn sản phẩm nào");
+    }
+</script>
+
+<form id="deleteCartForm" action="~/khachhang/giohang/xoa" method="POST" style="display: none;">
+    <input type="hidden" name="MaGioHang" id="hiddenMaGioHang" value="" />
+</form>
