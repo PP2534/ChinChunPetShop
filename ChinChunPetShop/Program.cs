@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var connectionString = builder.Configuration
+                             .GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ChinChunPetShopContext>(options =>
     options.UseMySql(
-        "server=103.178.235.9;database=ntu195_ChinChunPetShop;user=ntu195_chinchun_user;password=chinchun_user!",
-        ServerVersion.AutoDetect("server=103.178.235.9;database=ntu195_ChinChunPetShop;user=ntu195_chinchun_user;password=chinchun_user!")
+        connectionString,
+        ServerVersion.AutoDetect(connectionString)
     ));
 builder.Services
   .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -246,3 +246,4 @@ D:\Code\Projects\ChinChunPetShopProject\ChinChunPetShop\bin\Debug\net8.0\ExcelNu
 D:\Code\Projects\ChinChunPetShopProject\ChinChunPetShop\bin\Debug\net8.0\RBush.dll
 D:\Code\Projects\ChinChunPetShopProject\ChinChunPetShop\bin\Debug\net8.0\SixLabors.Fonts.dll
 D:\Code\Projects\ChinChunPetShopProject\ChinChunPetShop\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\Code\Projects\ChinChunPetShopProject\ChinChunPetShop\obj\Debug\net8.0\ChinChunPetShop.sourcelink.json

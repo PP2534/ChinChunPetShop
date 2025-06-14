@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\Code\\Projects\\ChinChunPetShopProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|d:\\code\\projects\\chinchunpetshopproject\\chinchunpetshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|solutionrelative:chinchunpetshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|d:\\code\\projects\\chinchunpetshopproject\\chinchunpetshop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|solutionrelative:chinchunpetshop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|d:\\code\\projects\\chinchunpetshopproject\\chinchunpetshop\\controllers\\thongkecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{81A49A39-85D4-41F3-86BD-301EC762E131}|ChinChunPetShop\\ChinChunPetShop.csproj|solutionrelative:chinchunpetshop\\controllers\\thongkecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -38,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +54,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\appsettings.json",
+              "RelativeDocumentMoniker": "ChinChunPetShop\\appsettings.json",
+              "ToolTip": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\appsettings.json",
+              "RelativeToolTip": "ChinChunPetShop\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-14T08:19:58.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Program.cs",
+              "RelativeDocumentMoniker": "ChinChunPetShop\\Program.cs",
+              "ToolTip": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Program.cs",
+              "RelativeToolTip": "ChinChunPetShop\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T07:35:34.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "SanPham.cshtml",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Views\\Home\\SanPham.cshtml",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Views\\Home\\SanPham.cshtml",
@@ -54,12 +88,11 @@
               "RelativeToolTip": "ChinChunPetShop\\Views\\Home\\SanPham.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-08T03:13:51.161Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T03:13:51.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Views\\KhachHangs\\Index.cshtml",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Views\\KhachHangs\\Index.cshtml",
@@ -67,12 +100,11 @@
               "RelativeToolTip": "ChinChunPetShop\\Views\\KhachHangs\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-08T02:38:33.215Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T02:38:33.215Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "KhachHangsController.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Controllers\\KhachHangsController.cs",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Controllers\\KhachHangsController.cs",
@@ -80,12 +112,11 @@
               "RelativeToolTip": "ChinChunPetShop\\Controllers\\KhachHangsController.cs",
               "ViewState": "AgIAAI4AAAAAAAAAAAAwwKUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T02:38:03.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T02:38:03.207Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "HomeController.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Controllers\\HomeController.cs",
@@ -93,12 +124,11 @@
               "RelativeToolTip": "ChinChunPetShop\\Controllers\\HomeController.cs",
               "ViewState": "AgIAAFsAAAAAAAAAAAAcwGsAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T08:53:32.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-07T08:53:32.652Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "SanPhamsController.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Controllers\\SanPhamsController.cs",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Controllers\\SanPhamsController.cs",
@@ -106,12 +136,11 @@
               "RelativeToolTip": "ChinChunPetShop\\Controllers\\SanPhamsController.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAYwDYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T08:52:31.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-07T08:52:31.625Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "ThongKeController.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Controllers\\ThongKeController.cs",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Controllers\\ThongKeController.cs",
@@ -124,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "HomeAdminController.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\ChinChunPetShopProject\\ChinChunPetShop\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
               "RelativeDocumentMoniker": "ChinChunPetShop\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
